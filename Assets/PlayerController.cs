@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// https://www.youtube.com/watch?v=7iYWpzL9GkM
-
-
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 0.5f;
