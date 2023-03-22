@@ -34,8 +34,8 @@ public struct NeighbourSpec
 
 public class GridDecorator : MonoBehaviour
 {
-    public int mapWidth = 100;
-    public int mapHeight = 100;
+    public int chunkWidth = 50;
+    public int chunkHeight = 50;
 
     public TileSpec[] tileSpecs;
 
@@ -105,11 +105,11 @@ public class GridDecorator : MonoBehaviour
 
     private void BuildTilemap(MapSquare[] map)
     {
-        int loopLimit = mapHeight * mapWidth;
+        int loopLimit = chunkHeight * chunkWidth;
 
         while (map.Any(s => s.Possibilities.Count > 1) && loopLimit-- > 0)
         {
-            // Select a square on the map
+            // Select the square on the map with the least possible tile options
             var square = map
                 .Where(s => s.Possibilities.Count > 1)
                 .OrderBy(s => s.Possibilities.Count)
@@ -154,13 +154,13 @@ public class GridDecorator : MonoBehaviour
 
     private void DrawMap(MapSquare[] map)
     {
-        for (int y = 0; y < mapHeight; y++)
+        for (int y = 0; y < chunkHeight; y++)
         {
-            for (int x = 0; x < mapWidth; x++)
+            for (int x = 0; x < chunkWidth; x++)
             {
-                int drawX = (-mapWidth / 2) + x;
-                int drawY = (mapHeight / 2) - y;
-                int tileIndex = map[(y * mapWidth) + x].TileIndex;
+                int drawX = (-chunkWidth / 2) + x;
+                int drawY = (chunkHeight / 2) - y;
+                int tileIndex = map[(y * chunkWidth) + x].TileIndex;
                 var spec = tileSpecs[tileIndex];
                 baseTilemap.SetTile(new Vector3Int(drawX, drawY, 0), spec.Tile);
 
@@ -175,14 +175,14 @@ public class GridDecorator : MonoBehaviour
 
     private MapSquare[] InitialiseMap()
     {
-        var map = new MapSquare[mapWidth * mapHeight];
+        var map = new MapSquare[chunkWidth * chunkHeight];
 
         // Initialise the map with all possible combinations of tile
-        for (int x = 0; x < mapWidth; x++)
+        for (int x = 0; x < chunkWidth; x++)
         {
-            for (int y = 0; y < mapHeight; y++)
+            for (int y = 0; y < chunkHeight; y++)
             {
-                map[(y * mapWidth) + x] = new MapSquare(x, y, neighbourSpecs.Select(n => n.Index));
+                map[(y * chunkWidth) + x] = new MapSquare(x, y, neighbourSpecs.Select(n => n.Index));
             }
         }
 
@@ -194,18 +194,18 @@ public class GridDecorator : MonoBehaviour
         List<MapSquare> recurse = new List<MapSquare>();
 
         // Right
-        if (square.x < mapWidth - 1)
+        if (square.x < chunkWidth - 1)
         {
-            var other = map[square.y * mapWidth + square.x + 1];
+            var other = map[square.y * chunkWidth + square.x + 1];
             var allowed = neighbourSpecs.Where(s => square.Possibilities.Contains(s.Index)).SelectMany(x => x.AllowedRight).Distinct();
             if(other.Restrict(allowed))
                 recurse.Add(other);
         }
 
         // Bottom
-        if (square.y < mapHeight - 1)
+        if (square.y < chunkHeight - 1)
         {
-            var other = map[(square.y + 1) * mapWidth + square.x];
+            var other = map[(square.y + 1) * chunkHeight + square.x];
             var allowed = neighbourSpecs.Where(s => square.Possibilities.Contains(s.Index)).SelectMany(x => x.AllowedBelow).Distinct();
             if(other.Restrict(allowed))
                 recurse.Add(other);
@@ -214,7 +214,7 @@ public class GridDecorator : MonoBehaviour
         // Left
         if (square.x > 0)
         {
-            var other = map[square.y * mapWidth + square.x - 1];
+            var other = map[square.y * chunkWidth + square.x - 1];
             var allowed = neighbourSpecs.Where(s => square.Possibilities.Contains(s.Index)).SelectMany(x => x.AllowedLeft).Distinct();
             if(other.Restrict(allowed))
                 recurse.Add(other);
@@ -223,7 +223,7 @@ public class GridDecorator : MonoBehaviour
         // Top
         if (square.y > 0)
         {
-            var other = map[(square.y - 1) * mapWidth + square.x];
+            var other = map[(square.y - 1) * chunkWidth + square.x];
             var allowed = neighbourSpecs.Where(s => square.Possibilities.Contains(s.Index)).SelectMany(x => x.AllowedAbove).Distinct();
             if(other.Restrict(allowed))
                 recurse.Add(other);
