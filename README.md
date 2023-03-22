@@ -6,8 +6,8 @@ Who knows what (if anything) will follow!
 
 ## References
 
-Followed (this)[https://www.youtube.com/watch?v=7iYWpzL9GkM] tutorial to get me started.
-Used the (Mystic Woods)[https://twitter.com/GameEndeavor] tileset for graphics.
+Followed [this](https://www.youtube.com/watch?v=7iYWpzL9GkM) tutorial to get me started.
+Used the [Mystic Woods](https://twitter.com/GameEndeavor) tileset for graphics.
 
 ## Screenshots
 
