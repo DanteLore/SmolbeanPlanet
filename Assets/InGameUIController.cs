@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
 public class InGameUIController : MonoBehaviour
 {
+    public GameObject player;
+    public Tilemap worldMap;
+
     private UIDocument doc;
     private Label worldCoordsLabel;
 
@@ -18,6 +22,7 @@ public class InGameUIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        worldCoordsLabel.text = Time.timeSinceLevelLoad.ToString();
+        var pos = worldMap.WorldToCell(player.transform.position);
+        worldCoordsLabel.text = $"{pos.x},{pos.y}";
     }
 }
