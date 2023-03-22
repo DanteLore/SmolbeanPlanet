@@ -158,8 +158,8 @@ public class GridDecorator : MonoBehaviour
         {
             for (int x = 0; x < chunkWidth; x++)
             {
-                int drawX = (-chunkWidth / 2) + x;
-                int drawY = (chunkHeight / 2) - y;
+                int drawX = x;// (-chunkWidth / 2) + x;
+                int drawY = y;//(chunkHeight / 2) - y;
                 int tileIndex = map[(y * chunkWidth) + x].TileIndex;
                 var spec = tileSpecs[tileIndex];
                 baseTilemap.SetTile(new Vector3Int(drawX, drawY, 0), spec.Tile);
@@ -203,9 +203,9 @@ public class GridDecorator : MonoBehaviour
         }
 
         // Bottom
-        if (square.y < chunkHeight - 1)
+        if (square.y > 0)
         {
-            var other = map[(square.y + 1) * chunkHeight + square.x];
+            var other = map[(square.y - 1) * chunkHeight + square.x];
             var allowed = neighbourSpecs.Where(s => square.Possibilities.Contains(s.Index)).SelectMany(x => x.AllowedBelow).Distinct();
             if(other.Restrict(allowed))
                 recurse.Add(other);
@@ -221,9 +221,9 @@ public class GridDecorator : MonoBehaviour
         }
 
         // Top
-        if (square.y > 0)
+        if (square.y < chunkHeight - 1)
         {
-            var other = map[(square.y - 1) * chunkWidth + square.x];
+            var other = map[(square.y + 1) * chunkWidth + square.x];
             var allowed = neighbourSpecs.Where(s => square.Possibilities.Contains(s.Index)).SelectMany(x => x.AllowedAbove).Distinct();
             if(other.Restrict(allowed))
                 recurse.Add(other);

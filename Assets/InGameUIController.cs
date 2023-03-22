@@ -23,6 +23,6 @@ public class InGameUIController : MonoBehaviour
     void Update()
     {
         var pos = worldMap.WorldToCell(player.transform.position);
-        worldCoordsLabel.text = $"{pos.x},{pos.y}";
+        worldCoordsLabel.text = $"Grid: {pos.x},{pos.y}";
     }
 }
