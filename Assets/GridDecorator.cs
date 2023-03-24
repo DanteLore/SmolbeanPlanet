@@ -33,6 +33,16 @@ public struct NeighbourSpec
     public int[] AllowedAbove;
 }
 
+[System.Serializable]
+public class ImpossibleCombinationException : System.Exception
+{
+    public ImpossibleCombinationException() { }
+    public ImpossibleCombinationException(string message) : base(message) { }
+    public ImpossibleCombinationException(string message, System.Exception inner) : base(message, inner) { }
+    protected ImpossibleCombinationException(
+        System.Runtime.Serialization.SerializationInfo info,
+        System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+}
 
 public class MapSquare 
 {
@@ -40,13 +50,13 @@ public class MapSquare
     public int x;
     public int y;
 
-    public List<int> Possibilities
+    public IEnumerable<int> Possibilities
     {
         get { return possibilities; }
     }
     public int TileIndex
     {
-        get { return possibilities.First(); }
+        get { return possibilities.FirstOrDefault(); }
     }
 
     public MapSquare(int x, int y, IEnumerable<int> possibilities)
@@ -56,15 +66,19 @@ public class MapSquare
         this.possibilities = possibilities.ToList();
     }
 
-    internal void SelectTile(int selected)
+    public void SelectTile(int selected)
     {
         possibilities = new List<int>() { selected };
     }
 
-    internal bool Restrict(IEnumerable<int> allowed)
+    public bool Restrict(IEnumerable<int> allowed)
     {
         if(possibilities.Count > 1){
             int numRemoved = possibilities.RemoveAll(p => !allowed.Contains(p));
+
+            if(possibilities.Count == 0)
+                throw new ImpossibleCombinationException();
+
             return numRemoved > 0;
         }
 
@@ -134,12 +148,12 @@ public class Chunk
     {
         int loopLimit = height * width;
 
-        while (map.Any(s => s.Possibilities.Count > 1) && loopLimit-- > 0)
+        while (map.Any(s => s.Possibilities.Count() > 1) && loopLimit-- > 0)
         {
             // Select the square on the map with the least possible tile options
             var square = map
-                .Where(s => s.Possibilities.Count > 1)
-                .OrderBy(s => s.Possibilities.Count)
+                .Where(s => s.Possibilities.Count() > 1)
+                .OrderBy(s => s.Possibilities.Count())
                 .First();
 
             // Assign a random, legal tile to that square
@@ -330,27 +344,41 @@ public class GridDecorator : MonoBehaviour
 
         foreach (Vector2Int vector in missingChunkCoords)
         {
-            Chunk chunk = new Chunk(vector, chunkWidth, chunkHeight, neighbourSpecs, tileSpecs);
+            bool done = false;
+            int loops = 0;
+            Chunk chunk = null;
+            while(!done && loops++ < 10)
+            {
+                try
+                {
+                    chunk = new Chunk(vector, chunkWidth, chunkHeight, neighbourSpecs, tileSpecs);
 
-            // Copy edges from existing neighbours
-            var rightLocation = new Vector2Int(vector.x + chunkWidth, vector.y);
-            if (chunks.ContainsKey(rightLocation))
-                chunk.ProcessNeighbourChunkOnRight(chunks[rightLocation]);
+                    // Copy edges from existing neighbours
+                    var rightLocation = new Vector2Int(vector.x + chunkWidth, vector.y);
+                    if (chunks.ContainsKey(rightLocation))
+                        chunk.ProcessNeighbourChunkOnRight(chunks[rightLocation]);
 
-            var leftLocation = new Vector2Int(vector.x - chunkWidth, vector.y);
-            if (chunks.ContainsKey(leftLocation))
-                chunk.ProcessNeighbourChunkOnLeft(chunks[leftLocation]);
+                    var leftLocation = new Vector2Int(vector.x - chunkWidth, vector.y);
+                    if (chunks.ContainsKey(leftLocation))
+                        chunk.ProcessNeighbourChunkOnLeft(chunks[leftLocation]);
 
-            var topLocation = new Vector2Int(vector.x, vector.y + chunkHeight);
-            if (chunks.ContainsKey(topLocation))
-                chunk.ProcessNeighbourChunkOnTop(chunks[topLocation]);
+                    var topLocation = new Vector2Int(vector.x, vector.y + chunkHeight);
+                    if (chunks.ContainsKey(topLocation))
+                        chunk.ProcessNeighbourChunkOnTop(chunks[topLocation]);
 
-            var bottomLocation = new Vector2Int(vector.x, vector.y - chunkHeight);
-            if (chunks.ContainsKey(bottomLocation))
-                chunk.ProcessNeighbourChunkOnBottom(chunks[bottomLocation]);
+                    var bottomLocation = new Vector2Int(vector.x, vector.y - chunkHeight);
+                    if (chunks.ContainsKey(bottomLocation))
+                        chunk.ProcessNeighbourChunkOnBottom(chunks[bottomLocation]);
 
-            chunk.BuildTilemap();
-            print($"Wave function collapse completed");
+                    chunk.BuildTilemap();
+                    print($"Wave function collapse completed");
+                    done = true;
+                }
+                catch(ImpossibleCombinationException)
+                {
+                    print($"Wave function collapse FAILED!");
+                }
+            }
 
             chunks.Add(vector, chunk);
             addedChunks.Add(chunk);
