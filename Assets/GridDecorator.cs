@@ -46,7 +46,7 @@ public class MapSquare
     }
     public int TileIndex
     {
-        get { return possibilities.FirstOrDefault(); }
+        get { return possibilities.First(); }
     }
 
     public MapSquare(int x, int y, IEnumerable<int> possibilities)
@@ -291,7 +291,7 @@ public class GridDecorator : MonoBehaviour
 
     void Start()
     {
-        var chunks = AddNewChunks(new Vector3Int(0, 0));
+        var chunks = AddNewChunks(GetNeighbourCoords(new Vector2Int(0, 0)));
         foreach(Chunk chunk in chunks)
             DrawChunk(chunk);
     }
@@ -301,67 +301,73 @@ public class GridDecorator : MonoBehaviour
         return a < 0 ? (a - b) / b : a / b;
     }
 
+    private Vector3Int playerPos;
+    private bool running = false;
+
     void Update()
     {
         var pos = baseTilemap.WorldToCell(player.transform.position);
 
-        ThreadedDataRequester.RequestData(() => {
-            return AddNewChunks(pos);
-        }, OnChunksDecorated);
+        if(pos != playerPos)
+        {
+            playerPos = pos;
+            var currentChunkCoords = new Vector2Int(DivTowardsNegInfinity((int)pos.x, chunkWidth) * chunkWidth, DivTowardsNegInfinity((int)pos.y, chunkHeight) * chunkHeight);
+            var missingChunkCoords = GetNeighbourCoords(currentChunkCoords).Where(v => !chunks.ContainsKey(v)).ToArray();
+
+            if(missingChunkCoords.Any() && !running)
+            {
+                running = true;
+                ThreadedDataRequester.RequestData(() => {
+                    return AddNewChunks(missingChunkCoords);
+                }, OnChunksDecorated);
+            }
+        }
     }
 
-    private List<Chunk> AddNewChunks(Vector3Int pos) 
+    private List<Chunk> AddNewChunks(Vector2Int[] missingChunkCoords) 
     {
-        lock(chunks)
+        var addedChunks = new List<Chunk>();
+
+        foreach (Vector2Int vector in missingChunkCoords)
         {
-            var currentTile = new Vector2Int(DivTowardsNegInfinity((int)pos.x, chunkWidth) * chunkWidth, DivTowardsNegInfinity((int)pos.y, chunkHeight) * chunkHeight);
-            Vector2Int[] vectors = GetChunksToDraw(currentTile);
+            Chunk chunk = new Chunk(vector, chunkWidth, chunkHeight, neighbourSpecs, tileSpecs);
 
-            var addedChunks = new List<Chunk>();
+            // Copy edges from existing neighbours
+            var rightLocation = new Vector2Int(vector.x + chunkWidth, vector.y);
+            if (chunks.ContainsKey(rightLocation))
+                chunk.ProcessNeighbourChunkOnRight(chunks[rightLocation]);
 
-            foreach (Vector2Int vector in vectors)
-            {
-                if (!chunks.ContainsKey(vector))
-                {
-                    Chunk chunk = new Chunk(vector, chunkWidth, chunkHeight, neighbourSpecs, tileSpecs);
-                    chunks.Add(vector, chunk);
+            var leftLocation = new Vector2Int(vector.x - chunkWidth, vector.y);
+            if (chunks.ContainsKey(leftLocation))
+                chunk.ProcessNeighbourChunkOnLeft(chunks[leftLocation]);
 
-                    // Copy edges from existing neighbours
-                    var rightLocation = new Vector2Int(vector.x + chunkWidth, vector.y);
-                    if (chunks.ContainsKey(rightLocation))
-                        chunk.ProcessNeighbourChunkOnRight(chunks[rightLocation]);
+            var topLocation = new Vector2Int(vector.x, vector.y + chunkHeight);
+            if (chunks.ContainsKey(topLocation))
+                chunk.ProcessNeighbourChunkOnTop(chunks[topLocation]);
 
-                    var leftLocation = new Vector2Int(vector.x - chunkWidth, vector.y);
-                    if (chunks.ContainsKey(leftLocation))
-                        chunk.ProcessNeighbourChunkOnLeft(chunks[leftLocation]);
+            var bottomLocation = new Vector2Int(vector.x, vector.y - chunkHeight);
+            if (chunks.ContainsKey(bottomLocation))
+                chunk.ProcessNeighbourChunkOnBottom(chunks[bottomLocation]);
 
-                    var topLocation = new Vector2Int(vector.x, vector.y + chunkHeight);
-                    if (chunks.ContainsKey(topLocation))
-                        chunk.ProcessNeighbourChunkOnTop(chunks[topLocation]);
+            chunk.BuildTilemap();
+            print($"Wave function collapse completed");
 
-                    var bottomLocation = new Vector2Int(vector.x, vector.y - chunkHeight);
-                    if (chunks.ContainsKey(bottomLocation))
-                        chunk.ProcessNeighbourChunkOnBottom(chunks[bottomLocation]);
-
-                    chunk.BuildTilemap();
-                    print($"Wave function collapse completed");
-
-                    addedChunks.Add(chunk);
-                }
-            }
-
-            return addedChunks;
+            chunks.Add(vector, chunk);
+            addedChunks.Add(chunk);
         }
+
+        return addedChunks;
     }
 
     private void OnChunksDecorated(object obj)
     {
+        running = false;
         var chunks = obj as List<Chunk>;
         foreach(Chunk chunk in chunks)
             DrawChunk(chunk);
     }
 
-    private Vector2Int[] GetChunksToDraw(Vector2Int currentTile)
+    private Vector2Int[] GetNeighbourCoords(Vector2Int currentTile)
     {
         return new Vector2Int[]
             {
