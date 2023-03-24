@@ -1099,8 +1099,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5505fb1a11f84304bc34a531e9e3b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkWidth: 50
-  chunkHeight: 50
+  chunkWidth: 20
+  chunkHeight: 20
+  player: {fileID: 1054705958}
   tileSpecs:
   - Tile: {fileID: 11400000, guid: f1ac4e83601b34ab584c971c87fb750f, type: 2}
     Weight: 10
@@ -1127,7 +1128,7 @@ MonoBehaviour:
     Embelishments: []
     embelishmentRate: 0
   - Tile: {fileID: 11400000, guid: ac39537ebb7234957a381104d03799bc, type: 2}
-    Weight: 0.75
+    Weight: 5
     Embelishments:
     - {fileID: 11400000, guid: 0beef4e02d7c048a69d04dcd360c158f, type: 2}
     - {fileID: 11400000, guid: 3f801969eebfe4782ad02442f93c07ea, type: 2}

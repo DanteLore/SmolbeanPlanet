@@ -32,10 +32,61 @@ public struct NeighbourSpec
     public int[] AllowedAbove;
 }
 
+
+public class MapSquare 
+{
+    private List<int> possibilities;
+    public int x;
+    public int y;
+
+    public List<int> Possibilities
+    {
+        get { return possibilities; }
+    }
+    public int TileIndex
+    {
+        get { return possibilities.FirstOrDefault(); }
+    }
+
+    public MapSquare(int x, int y, IEnumerable<int> possibilities)
+    {
+        this.x = x;
+        this.y = y;
+        this.possibilities = possibilities.ToList();
+    }
+
+    internal void SelectTile(int selected)
+    {
+        possibilities = new List<int>() { selected };
+    }
+
+    internal bool Restrict(IEnumerable<int> allowed)
+    {
+        if(possibilities.Count > 1){
+            int numRemoved = possibilities.RemoveAll(p => !allowed.Contains(p));
+            return numRemoved > 0;
+        }
+
+        return false;
+    }
+}
+
+public class Chunk
+{
+    public MapSquare[] map;
+
+    public Chunk(MapSquare[] map)
+    {
+        this.map = map;
+    }
+}
+
 public class GridDecorator : MonoBehaviour
 {
     public int chunkWidth = 50;
     public int chunkHeight = 50;
+
+    public GameObject player;
 
     public TileSpec[] tileSpecs;
 
@@ -47,70 +98,64 @@ public class GridDecorator : MonoBehaviour
     public Tilemap baseTilemap;
     public Tilemap embelishmentTilemap;
 
+    private Dictionary<Vector2Int, Chunk> chunks = new Dictionary<Vector2Int, Chunk>();
+
     // Start is called before the first frame update
     void Start()
     {
-        MapSquare[] map = InitialiseMap();
+    }
 
-        var t = Time.realtimeSinceStartup;
-        BuildTilemap(map);
-        print($"Wave function collapse completed in {(Time.realtimeSinceStartup - t).ToString("f6")}");
-
-        DrawMap(map);
+    private static int DivTowardsNegInfinity(int a, int b)
+    {
+        return a < 0 ? (a - b) / b : a / b;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
+        var pos = baseTilemap.WorldToCell(player.transform.position);
 
-    private class MapSquare 
-    {
-        private List<int> possibilities;
-        public int x;
-        public int y;
+        var currentTile = new Vector2Int(DivTowardsNegInfinity((int)pos.x, chunkWidth) * chunkWidth, DivTowardsNegInfinity((int)pos.y, chunkHeight) * chunkHeight);
 
-        public List<int> Possibilities
-        {
-            get { return possibilities; }
-        }
-        public int TileIndex
-        {
-            get { return possibilities.FirstOrDefault(); }
-        }
+        var vectors = new Vector2Int[] 
+        { 
+            currentTile, // This tile
+            new Vector2Int(currentTile.x - chunkWidth, currentTile.y), // Left
+            new Vector2Int(currentTile.x - chunkWidth, currentTile.y - chunkHeight), // Bottom Left
+            new Vector2Int(currentTile.x, currentTile.y - chunkHeight), // Bottom
+            new Vector2Int(currentTile.x + chunkWidth, currentTile.y - chunkHeight), // Bottom Right
+            new Vector2Int(currentTile.x + chunkWidth, currentTile.y), // Right
+            new Vector2Int(currentTile.x + chunkWidth, currentTile.y + chunkHeight), // Top Right
+            new Vector2Int(currentTile.x, currentTile.y + chunkHeight), // Top
+            new Vector2Int(currentTile.x - chunkWidth, currentTile.y + chunkHeight), // Top Left
+        };
 
-        public MapSquare(int x, int y, IEnumerable<int> possibilities)
+        foreach(Vector2Int vector in vectors)
         {
-            this.x = x;
-            this.y = y;
-            this.possibilities = possibilities.ToList();
-        }
+            if(!chunks.ContainsKey(vector))
+            {
+                Chunk chunk = InitialiseChunk();
+                chunks.Add(vector, chunk);
 
-        internal void SelectTile(int selected)
-        {
-            possibilities = new List<int>() { selected };
-        }
+                // Copy edges from existing neighbour
 
-        internal bool Restrict(IEnumerable<int> allowed)
-        {
-            if(possibilities.Count > 1){
-                int numRemoved = possibilities.RemoveAll(p => !allowed.Contains(p));
-                return numRemoved > 0;
+                var t = Time.realtimeSinceStartup;
+                BuildTilemap(chunk);
+                print($"Wave function collapse completed in {(Time.realtimeSinceStartup - t).ToString("f6")}");
+
+                DrawChunk(chunk, vector);
             }
-
-            return false;
         }
     }
-
-    private void BuildTilemap(MapSquare[] map)
+ 
+    private void BuildTilemap(Chunk chunk)
     {
         int loopLimit = chunkHeight * chunkWidth;
 
-        while (map.Any(s => s.Possibilities.Count > 1) && loopLimit-- > 0)
+        while (chunk.map.Any(s => s.Possibilities.Count > 1) && loopLimit-- > 0)
         {
             // Select the square on the map with the least possible tile options
-            var square = map
+            var square = chunk.map
                 .Where(s => s.Possibilities.Count > 1)
                 .OrderBy(s => s.Possibilities.Count)
                 .First();
@@ -121,7 +166,7 @@ public class GridDecorator : MonoBehaviour
             square.SelectTile(selected);
 
             // Collapse probabilities on neighbour squares
-            Collapse(map, square);
+            Collapse(chunk.map, square);
 
             // Repeat!
         }
@@ -152,16 +197,18 @@ public class GridDecorator : MonoBehaviour
         return choices.Last().I;
     }
 
-    private void DrawMap(MapSquare[] map)
+    private void DrawChunk(Chunk chunk, Vector2Int origin)
     {
         for (int y = 0; y < chunkHeight; y++)
         {
             for (int x = 0; x < chunkWidth; x++)
             {
-                int drawX = x;// (-chunkWidth / 2) + x;
-                int drawY = y;//(chunkHeight / 2) - y;
-                int tileIndex = map[(y * chunkWidth) + x].TileIndex;
+                int tileIndex = chunk.map[(y * chunkWidth) + x].TileIndex;
                 var spec = tileSpecs[tileIndex];
+
+                int drawX = origin.x + x;
+                int drawY = origin.y + y;
+
                 baseTilemap.SetTile(new Vector3Int(drawX, drawY, 0), spec.Tile);
 
                 if(spec.Embelishments.Any() && r.NextDouble() < spec.embelishmentRate)
@@ -173,7 +220,7 @@ public class GridDecorator : MonoBehaviour
         }
     }
 
-    private MapSquare[] InitialiseMap()
+    private Chunk InitialiseChunk()
     {
         var map = new MapSquare[chunkWidth * chunkHeight];
 
@@ -186,7 +233,7 @@ public class GridDecorator : MonoBehaviour
             }
         }
 
-        return map;
+        return new Chunk(map);
     }
 
     private void Collapse(MapSquare[] map, MapSquare square)
