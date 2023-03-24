@@ -1050,6 +1050,7 @@ GameObject:
   - component: {fileID: 1393605016}
   - component: {fileID: 1393605015}
   - component: {fileID: 1393605017}
+  - component: {fileID: 1393605018}
   m_Layer: 0
   m_Name: WorldGrid
   m_TagString: Untagged
@@ -1099,8 +1100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5505fb1a11f84304bc34a531e9e3b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkWidth: 20
-  chunkHeight: 20
+  chunkWidth: 24
+  chunkHeight: 24
   player: {fileID: 1054705958}
   tileSpecs:
   - Tile: {fileID: 11400000, guid: f1ac4e83601b34ab584c971c87fb750f, type: 2}
@@ -1112,7 +1113,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: fc8267009aab74ce4b277ee65d3e9d3b, type: 2}
     embelishmentRate: 0.1
   - Tile: {fileID: 11400000, guid: b0eb1094d603b48c48abc2115fb16e40, type: 2}
-    Weight: 0.25
+    Weight: 0.1
     Embelishments: []
     embelishmentRate: 0
   - Tile: {fileID: 11400000, guid: 0003f7011dc064aadafab1f6d4691d01, type: 2}
@@ -1120,7 +1121,7 @@ MonoBehaviour:
     Embelishments: []
     embelishmentRate: 0
   - Tile: {fileID: 11400000, guid: 75d1c6c185eb34c7d9ec16c7d66bad64, type: 2}
-    Weight: 0.25
+    Weight: 0.1
     Embelishments: []
     embelishmentRate: 0
   - Tile: {fileID: 11400000, guid: d665fee6a12a8431b8f380bf0baa5d86, type: 2}
@@ -1140,7 +1141,7 @@ MonoBehaviour:
     Embelishments: []
     embelishmentRate: 0
   - Tile: {fileID: 11400000, guid: 2f0956a20da8641968f882e3b3cef99a, type: 2}
-    Weight: 0.25
+    Weight: 0.1
     Embelishments: []
     embelishmentRate: 0
   - Tile: {fileID: 11400000, guid: b1a5c192cd46242eaa87ea9e10e712d2, type: 2}
@@ -1148,7 +1149,7 @@ MonoBehaviour:
     Embelishments: []
     embelishmentRate: 0
   - Tile: {fileID: 11400000, guid: 7e82ccfb2137443dea12f64b731003b2, type: 2}
-    Weight: 0.25
+    Weight: 0.1
     Embelishments: []
     embelishmentRate: 0
   - Tile: {fileID: 11400000, guid: 3f07ec0d4f0774ba99750aa9968a26ef, type: 2}
@@ -1238,9 +1239,20 @@ MonoBehaviour:
     AllowedBelow: 05000000080000000a0000000b000000
     AllowedLeft: 01000000020000000c000000
     AllowedAbove: 01000000040000000b000000
-  plainGrass: {fileID: 11400000, guid: f1ac4e83601b34ab584c971c87fb750f, type: 2}
   baseTilemap: {fileID: 1415721854}
   embelishmentTilemap: {fileID: 447348325}
+--- !u!114 &1393605018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393605014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 414c9a62fe0264ae9927512e0c094a0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1415721851
 GameObject:
   m_ObjectHideFlags: 0

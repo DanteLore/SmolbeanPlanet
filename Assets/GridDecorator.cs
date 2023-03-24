@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEditor;
 using System.Linq;
+using System.Threading;
 
 [System.Serializable]
 public struct TileSpec 
@@ -74,6 +75,7 @@ public class MapSquare
 public class Chunk
 {
     private MapSquare[] map;
+    private Vector2Int origin;
     private int height;
     private int width;
     NeighbourSpec[] neighbourSpecs;
@@ -103,8 +105,14 @@ public class Chunk
         get { return mapIndex; }
     }
 
-    public Chunk(int width, int height, NeighbourSpec[] neighbourSpecs, TileSpec[] tileSpecs)
+    public Vector2Int Origin
     {
+        get { return origin; }
+    }
+
+    public Chunk(Vector2Int origin, int width, int height, NeighbourSpec[] neighbourSpecs, TileSpec[] tileSpecs)
+    {
+        this.origin = origin;
         this.width = width;
         this.height = height;
         this.neighbourSpecs = neighbourSpecs;
@@ -276,7 +284,6 @@ public class GridDecorator : MonoBehaviour
 
     private System.Random r = new System.Random();
 
-    public Tile plainGrass;
     public Tilemap baseTilemap;
     public Tilemap embelishmentTilemap;
 
@@ -284,6 +291,9 @@ public class GridDecorator : MonoBehaviour
 
     void Start()
     {
+        var chunks = AddNewChunks(new Vector3Int(0, 0));
+        foreach(Chunk chunk in chunks)
+            DrawChunk(chunk);
     }
 
     private static int DivTowardsNegInfinity(int a, int b)
@@ -295,40 +305,60 @@ public class GridDecorator : MonoBehaviour
     {
         var pos = baseTilemap.WorldToCell(player.transform.position);
 
-        var currentTile = new Vector2Int(DivTowardsNegInfinity((int)pos.x, chunkWidth) * chunkWidth, DivTowardsNegInfinity((int)pos.y, chunkHeight) * chunkHeight);
-        Vector2Int[] vectors = GetChunksToDraw(currentTile);
+        ThreadedDataRequester.RequestData(() => {
+            return AddNewChunks(pos);
+        }, OnChunksDecorated);
+    }
 
-        foreach (Vector2Int vector in vectors)
+    private List<Chunk> AddNewChunks(Vector3Int pos) 
+    {
+        lock(chunks)
         {
-            if (!chunks.ContainsKey(vector))
+            var currentTile = new Vector2Int(DivTowardsNegInfinity((int)pos.x, chunkWidth) * chunkWidth, DivTowardsNegInfinity((int)pos.y, chunkHeight) * chunkHeight);
+            Vector2Int[] vectors = GetChunksToDraw(currentTile);
+
+            var addedChunks = new List<Chunk>();
+
+            foreach (Vector2Int vector in vectors)
             {
-                Chunk chunk = new Chunk(chunkWidth, chunkHeight, neighbourSpecs, tileSpecs);
-                chunks.Add(vector, chunk);
+                if (!chunks.ContainsKey(vector))
+                {
+                    Chunk chunk = new Chunk(vector, chunkWidth, chunkHeight, neighbourSpecs, tileSpecs);
+                    chunks.Add(vector, chunk);
 
-                // Copy edges from existing neighbours
-                var rightLocation = new Vector2Int(vector.x + chunkWidth,  vector.y);
-                if(chunks.ContainsKey(rightLocation))
-                    chunk.ProcessNeighbourChunkOnRight(chunks[rightLocation]);
+                    // Copy edges from existing neighbours
+                    var rightLocation = new Vector2Int(vector.x + chunkWidth, vector.y);
+                    if (chunks.ContainsKey(rightLocation))
+                        chunk.ProcessNeighbourChunkOnRight(chunks[rightLocation]);
 
-                var leftLocation = new Vector2Int(vector.x - chunkWidth,  vector.y);
-                if(chunks.ContainsKey(leftLocation))
-                    chunk.ProcessNeighbourChunkOnLeft(chunks[leftLocation]);
+                    var leftLocation = new Vector2Int(vector.x - chunkWidth, vector.y);
+                    if (chunks.ContainsKey(leftLocation))
+                        chunk.ProcessNeighbourChunkOnLeft(chunks[leftLocation]);
 
-                var topLocation = new Vector2Int(vector.x,  vector.y + chunkHeight);
-                if(chunks.ContainsKey(topLocation))
-                    chunk.ProcessNeighbourChunkOnTop(chunks[topLocation]);
+                    var topLocation = new Vector2Int(vector.x, vector.y + chunkHeight);
+                    if (chunks.ContainsKey(topLocation))
+                        chunk.ProcessNeighbourChunkOnTop(chunks[topLocation]);
 
-                var bottomLocation = new Vector2Int(vector.x,  vector.y - chunkHeight);
-                if(chunks.ContainsKey(bottomLocation))
-                    chunk.ProcessNeighbourChunkOnBottom(chunks[bottomLocation]);
+                    var bottomLocation = new Vector2Int(vector.x, vector.y - chunkHeight);
+                    if (chunks.ContainsKey(bottomLocation))
+                        chunk.ProcessNeighbourChunkOnBottom(chunks[bottomLocation]);
 
-                var t = Time.realtimeSinceStartup;
-                chunk.BuildTilemap();
-                print($"Wave function collapse completed in {(Time.realtimeSinceStartup - t).ToString("f6")}");
+                    chunk.BuildTilemap();
+                    print($"Wave function collapse completed");
 
-                DrawChunk(chunk, vector);
+                    addedChunks.Add(chunk);
+                }
             }
+
+            return addedChunks;
         }
+    }
+
+    private void OnChunksDecorated(object obj)
+    {
+        var chunks = obj as List<Chunk>;
+        foreach(Chunk chunk in chunks)
+            DrawChunk(chunk);
     }
 
     private Vector2Int[] GetChunksToDraw(Vector2Int currentTile)
@@ -347,7 +377,7 @@ public class GridDecorator : MonoBehaviour
             };
     }
 
-    private void DrawChunk(Chunk chunk, Vector2Int origin)
+    private void DrawChunk(Chunk chunk)
     {
         for (int y = 0; y < chunkHeight; y++)
         {
@@ -356,8 +386,8 @@ public class GridDecorator : MonoBehaviour
                 int tileIndex = chunk.Map[x, y].TileIndex;
                 var spec = tileSpecs[tileIndex];
 
-                int drawX = origin.x + x;
-                int drawY = origin.y + y;
+                int drawX = chunk.Origin.x + x;
+                int drawY = chunk.Origin.y + y;
 
                 baseTilemap.SetTile(new Vector3Int(drawX, drawY, 0), spec.Tile);
 
