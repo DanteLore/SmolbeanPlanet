@@ -1100,8 +1100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5505fb1a11f84304bc34a531e9e3b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkWidth: 64
-  chunkHeight: 64
+  chunkWidth: 24
+  chunkHeight: 24
   player: {fileID: 1054705958}
   tileSpecs:
   - Tile: {fileID: 11400000, guid: f1ac4e83601b34ab584c971c87fb750f, type: 2}

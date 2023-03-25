@@ -238,50 +238,70 @@ public class Chunk
 
     internal void ProcessNeighbourChunkOnRight(Chunk rightNeighbour)
     {
+        List<MapSquare> recurse = new List<MapSquare>();
+
         for(int i = 0; i < height; i++)
         {
             int tile = rightNeighbour.Map[0, i].TileIndex;
 
             var target = Map[width - 1, i];
             var allowed = neighbourSpecs.First(s => s.Index == tile).AllowedLeft;
-            target.Restrict(allowed);
+            if(target.Restrict(allowed))
+                recurse.Add(target);
         }
+
+        recurse.ForEach(s => Collapse(map, s));
     }
 
     internal void ProcessNeighbourChunkOnLeft(Chunk leftNeighbour)
     {
+        List<MapSquare> recurse = new List<MapSquare>();
+
         for(int i = 0; i < height; i++)
         {
             int tile = leftNeighbour.Map[width - 1, i].TileIndex;
 
             var target = Map[0, i];
             var allowed = neighbourSpecs.First(s => s.Index == tile).AllowedRight;
-            target.Restrict(allowed);
+            if(target.Restrict(allowed))
+                recurse.Add(target);
         }
+
+        recurse.ForEach(s => Collapse(map, s));
     }
 
     internal void ProcessNeighbourChunkOnTop(Chunk topNeighbour)
     {
+        List<MapSquare> recurse = new List<MapSquare>();
+
         for(int i = 0; i < width; i++)
         {
             int tile = topNeighbour.Map[i, 0].TileIndex;
 
             var target = Map[i, height - 1];
             var allowed = neighbourSpecs.First(s => s.Index == tile).AllowedBelow;
-            target.Restrict(allowed);
+            if(target.Restrict(allowed))
+                recurse.Add(target);
         }
+
+        recurse.ForEach(s => Collapse(map, s));
     }
 
     internal void ProcessNeighbourChunkOnBottom(Chunk bottomNeighbour)
     {
+        List<MapSquare> recurse = new List<MapSquare>();
+
         for(int i = 0; i < width; i++)
         {
             int tile = bottomNeighbour.Map[i, height - 1].TileIndex;
 
             var target = Map[i, 0];
             var allowed = neighbourSpecs.First(s => s.Index == tile).AllowedAbove;
-            target.Restrict(allowed);
+            if(target.Restrict(allowed))
+                recurse.Add(target);
         }
+
+        recurse.ForEach(s => Collapse(map, s));
     }
 }
 
