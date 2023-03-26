@@ -11,6 +11,9 @@ Used the [Mystic Woods](https://twitter.com/GameEndeavor) tileset for graphics.
 
 ## Screenshots
 
+Added water embelishments
+![Screenshot 5](./docs/images/screenshot5.png)
+
 Added water
 ![Screenshot 4](./docs/images/screenshot4.png)
 
