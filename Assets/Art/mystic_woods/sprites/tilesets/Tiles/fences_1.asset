@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: fences_1
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -2049754404, guid: 78bd17aafac5e4535b47520893cf0447, type: 3}
+  m_Sprite: {fileID: -1586464202, guid: 384c170f4a1e842358819cf4e3f7791b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
