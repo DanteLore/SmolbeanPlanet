@@ -16,7 +16,9 @@ public struct TileSpec
 
     public Tile[] Embelishments;
 
-    public float embelishmentRate;
+    public float embelishmentRate; 
+
+    public bool Walkable;
 }
 
 [System.Serializable]
@@ -320,6 +322,7 @@ public class GridDecorator : MonoBehaviour
 
     public Tilemap baseTilemap;
     public Tilemap embelishmentTilemap;
+    public Tilemap collisionTilemap;
 
     private Dictionary<Vector2Int, Chunk> chunks = new Dictionary<Vector2Int, Chunk>();
 
@@ -443,7 +446,10 @@ public class GridDecorator : MonoBehaviour
                 int drawX = chunk.Origin.x + x;
                 int drawY = chunk.Origin.y + y;
 
-                baseTilemap.SetTile(new Vector3Int(drawX, drawY, 0), spec.Tile);
+                if(spec.Walkable)
+                    baseTilemap.SetTile(new Vector3Int(drawX, drawY, 0), spec.Tile);
+                else
+                    collisionTilemap.SetTile(new Vector3Int(drawX, drawY, 0), spec.Tile);
 
                 if(spec.Embelishments.Any() && r.NextDouble() < spec.embelishmentRate)
                 {

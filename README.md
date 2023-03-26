@@ -11,6 +11,9 @@ Used the [Mystic Woods](https://twitter.com/GameEndeavor) tileset for graphics.
 
 ## Screenshots
 
+Added water
+![Screenshot 4](./docs/images/screenshot4.png)
+
 Wave function collapse with weighted distribution of tiles - encouraging larger grass and mud areas
 ![Screenshot 3](./docs/images/screenshot3.png)
 
