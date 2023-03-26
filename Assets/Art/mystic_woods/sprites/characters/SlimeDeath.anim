@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerAttack
+  m_Name: SlimeDeath
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,17 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 1027771601, guid: 95d5170cdc47042dfb7b381a34a18b63, type: 3}
+      value: {fileID: 1140910186, guid: b65546d9701504c2da62f0cdfb26112f, type: 3}
+    - time: 0.083333336
+      value: {fileID: 360592036, guid: b65546d9701504c2da62f0cdfb26112f, type: 3}
     - time: 0.16666667
-      value: {fileID: -293782725, guid: 95d5170cdc47042dfb7b381a34a18b63, type: 3}
-    - time: 0.33333334
-      value: {fileID: 916135791, guid: 95d5170cdc47042dfb7b381a34a18b63, type: 3}
-    - time: 0.5
-      value: {fileID: -735025973, guid: 95d5170cdc47042dfb7b381a34a18b63, type: 3}
+      value: {fileID: -414684148, guid: b65546d9701504c2da62f0cdfb26112f, type: 3}
+    - time: 0.26666668
+      value: {fileID: -881798789, guid: b65546d9701504c2da62f0cdfb26112f, type: 3}
+    - time: 0.35
+      value: {fileID: 593754697, guid: b65546d9701504c2da62f0cdfb26112f, type: 3}
+    - time: 0.43333334
+      value: {fileID: -327836472, guid: b65546d9701504c2da62f0cdfb26112f, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,16 +50,18 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 1027771601, guid: 95d5170cdc47042dfb7b381a34a18b63, type: 3}
-    - {fileID: -293782725, guid: 95d5170cdc47042dfb7b381a34a18b63, type: 3}
-    - {fileID: 916135791, guid: 95d5170cdc47042dfb7b381a34a18b63, type: 3}
-    - {fileID: -735025973, guid: 95d5170cdc47042dfb7b381a34a18b63, type: 3}
+    - {fileID: 1140910186, guid: b65546d9701504c2da62f0cdfb26112f, type: 3}
+    - {fileID: 360592036, guid: b65546d9701504c2da62f0cdfb26112f, type: 3}
+    - {fileID: -414684148, guid: b65546d9701504c2da62f0cdfb26112f, type: 3}
+    - {fileID: -881798789, guid: b65546d9701504c2da62f0cdfb26112f, type: 3}
+    - {fileID: 593754697, guid: b65546d9701504c2da62f0cdfb26112f, type: 3}
+    - {fileID: -327836472, guid: b65546d9701504c2da62f0cdfb26112f, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.51666665
+    m_StopTime: 0.45000002
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -75,15 +81,8 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0
-    functionName: SwordAttack
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.5
-    functionName: EndSwordAttack
+  - time: 0.43333334
+    functionName: RemoveEnemy
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

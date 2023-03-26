@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public ContactFilter2D movementFilter;
     public float collisionOffset = 0.05f;
 
-    //public SwordAttack swordAttack;
+    public SwordAttack swordAttack;
 
     bool canMove = true;
 
@@ -73,10 +73,9 @@ public class PlayerController : MonoBehaviour
 
     void OnFire()
     {
-        //animator.SetTrigger("SwordAttack");
+        animator.SetTrigger("SwordAttack");
     }
 
-/*
     public void SwordAttack()
     {
         LockMovement();
@@ -105,5 +104,4 @@ public class PlayerController : MonoBehaviour
     {
         canMove = true;
     }
-    */
 }

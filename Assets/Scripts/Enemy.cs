@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
         set 
         { 
             health = value;
+
             if(health <= 0.0f)
                 Defeated();
         }

@@ -43,6 +43,7 @@ public class SwordAttack : MonoBehaviour
                 return;
 
             enemy.Health -= damage;
+            print(enemy.Health);
         }
     }
 }
