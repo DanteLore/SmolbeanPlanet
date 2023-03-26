@@ -1262,7 +1262,7 @@ MonoBehaviour:
   player: {fileID: 961812959}
   tileSpecs:
   - Tile: {fileID: 11400000, guid: 104a40ca81719415aa11a74a0a7a0a6b, type: 2}
-    Weight: 1
+    Weight: 50
     Embelishments:
     - {fileID: 11400000, guid: 2b789b9624f4e47dd8ad84209b6b5fbd, type: 2}
     - {fileID: 11400000, guid: c0a0502f20b314f9c8c6f9a5b4e53aca, type: 2}
@@ -1281,12 +1281,262 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 8f2dfade869354dd3802623431476638, type: 2}
     - {fileID: 11400000, guid: fa37a3e68d0494dd5b10888e868d615e, type: 2}
     embelishmentRate: 0.1
+  - Tile: {fileID: 11400000, guid: 28353ad02c8ab4d55907037998824811, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 29507a690b6ed499fac907c8da22ac80, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 5c6fb26552bef47fd9fcffa8708d6f66, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 7c8c04888b1714c42a738737d99cc74f, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 7e9eecb2bd5e5488e82896327de24de0, type: 2}
+    Weight: 5
+    Embelishments:
+    - {fileID: 11400000, guid: c00df5d49b6a44f38bb0727f9aa86c3f, type: 2}
+    - {fileID: 11400000, guid: 29a1a25339bd04c978a7576bcb7088ed, type: 2}
+    - {fileID: 11400000, guid: 9756058f6851047d8adfce5fca7daf86, type: 2}
+    - {fileID: 11400000, guid: 95b94c52d009040d8825c7f6afe44927, type: 2}
+    embelishmentRate: 0.1
+  - Tile: {fileID: 11400000, guid: 354950108f1314f398e41b7561f2dc35, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 9f7ac550da63d4a1f92b6f5979873793, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 399dabaef218d4d368e29abac377264a, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 57c410b84ff66406881350dfe79da89b, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: e3d4194853b2244938fe8906eb2153c9, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: b02444146a61146ecbff55d7a5f8db6a, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 8177a6a829a9749a88c7b30db1ec5a42, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 97fb38630c0d646298261335e821dc9e, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 8ed607376643248ea9321027a77b8d0e, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: c55d75cd83bbd40b48f2f8e38b03e3f3, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 28a28b875888444ccbed1426dd6f2f13, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 8be0ce2e19d5747fd91e6ed17a3efe5e, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: e365cca19bf524f1faedb3a81fbac9db, type: 2}
+    Weight: 20
+    Embelishments:
+    - {fileID: 11400000, guid: 6ddf595a1646e4f718c06decee5bd202, type: 2}
+    - {fileID: 11400000, guid: 8e89a64c9ad6149f7bb245e599774ad2, type: 2}
+    - {fileID: 11400000, guid: 5b55f2743cd0c4abba3ab7f015817720, type: 2}
+    - {fileID: 11400000, guid: c843c4ee69ca342d6943d033d994bcd7, type: 2}
+    - {fileID: 11400000, guid: 4742547d782fe43328f49445a6b2b906, type: 2}
+    - {fileID: 11400000, guid: d267b48af2470456a99a1618af63b0fa, type: 2}
+    - {fileID: 11400000, guid: 55b9064ad8e7a43c39a6353a26caeec1, type: 2}
+    - {fileID: 11400000, guid: 29cac928006a64b8ab855634e2d67870, type: 2}
+    - {fileID: 11400000, guid: 82d48029960f64bc9911220cbd97e627, type: 2}
+    - {fileID: 11400000, guid: 03c99e9fbb9654a1eb402525ec7904c0, type: 2}
+    - {fileID: 11400000, guid: 33aa734035b284ebba22fb7b510c9171, type: 2}
+    - {fileID: 11400000, guid: 881aabe676ab1448ead2dd06f1e56fcd, type: 2}
+    embelishmentRate: 0.1
+  - Tile: {fileID: 11400000, guid: a2d4cd1cd28864ef0b7416a6fbe4488d, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: d443c3f3b61e24ef3ad8aa2dafdd7bcb, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 6e8e91ffdb5db46239850e21ce447a34, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: ff6c23fba425c46409a409126a6d37e3, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 8465c94bc08c74ff68ef7635cdf73df3, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 5eab528ba418348e8b6a63043d140ce2, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: ceb18615cd1124d878343f880fa82c4a, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
+  - Tile: {fileID: 11400000, guid: 3d9615394a53f42d1ab7605d7e444dff, type: 2}
+    Weight: 1
+    Embelishments: []
+    embelishmentRate: 0
   neighbourSpecs:
   - Index: 0
-    AllowedRight: 00000000
-    AllowedBelow: 00000000
-    AllowedLeft: 00000000
-    AllowedAbove: 00000000
+    AllowedRight: 000000000100000004000000070000000e0000001100000014000000
+    AllowedBelow: 000000000100000002000000030000000e0000000f00000010000000
+    AllowedLeft: 00000000030000000600000009000000100000001300000016000000
+    AllowedAbove: 00000000070000000800000009000000140000001500000016000000
+  - Index: 1
+    AllowedRight: 02000000030000000d000000
+    AllowedBelow: 04000000070000000d000000
+    AllowedLeft: 00000000030000000600000009000000100000001300000016000000
+    AllowedAbove: 00000000070000000800000009000000140000001500000016000000
+  - Index: 2
+    AllowedRight: 02000000030000000d000000
+    AllowedBelow: 05000000080000000a0000000b000000
+    AllowedLeft: 01000000020000000c000000
+    AllowedAbove: 00000000070000000800000009000000140000001500000016000000
+  - Index: 3
+    AllowedRight: 000000000100000004000000070000000e0000001100000014000000
+    AllowedBelow: 06000000090000000c000000
+    AllowedLeft: 01000000020000000c000000
+    AllowedAbove: 00000000070000000800000009000000140000001500000016000000
+  - Index: 4
+    AllowedRight: 05000000060000000a0000000c000000
+    AllowedBelow: 04000000070000000d000000
+    AllowedLeft: 00000000030000000600000009000000100000001300000016000000
+    AllowedAbove: 01000000040000000b000000
+  - Index: 5
+    AllowedRight: 05000000060000000a0000000c000000
+    AllowedBelow: 05000000080000000a0000000b000000
+    AllowedLeft: 04000000050000000b0000000d000000
+    AllowedAbove: 02000000050000000c0000000d000000
+  - Index: 6
+    AllowedRight: 000000000100000004000000070000000e0000001100000014000000
+    AllowedBelow: 06000000090000000c000000
+    AllowedLeft: 04000000050000000b0000000d000000
+    AllowedAbove: 03000000060000000b000000
+  - Index: 7
+    AllowedRight: 08000000090000000b000000
+    AllowedBelow: 000000000100000002000000030000000e0000000f00000010000000
+    AllowedLeft: 00000000030000000600000009000000100000001300000016000000
+    AllowedAbove: 01000000040000000b000000
+  - Index: 8
+    AllowedRight: 08000000090000000b000000
+    AllowedBelow: 000000000100000002000000030000000e0000000f00000010000000
+    AllowedLeft: 07000000080000000a000000
+    AllowedAbove: 02000000050000000c0000000d000000
+  - Index: 9
+    AllowedRight: 000000000100000004000000070000000e0000001100000014000000
+    AllowedBelow: 000000000100000002000000030000000e0000000f00000010000000
+    AllowedLeft: 07000000080000000a000000
+    AllowedAbove: 03000000060000000b000000
+  - Index: 10
+    AllowedRight: 08000000090000000b000000
+    AllowedBelow: 06000000090000000c000000
+    AllowedLeft: 04000000050000000b0000000d000000
+    AllowedAbove: 02000000050000000c0000000d000000
+  - Index: 11
+    AllowedRight: 05000000060000000a0000000c000000
+    AllowedBelow: 04000000070000000d000000
+    AllowedLeft: 07000000080000000a000000
+    AllowedAbove: 02000000050000000c0000000d000000
+  - Index: 12
+    AllowedRight: 02000000030000000d000000
+    AllowedBelow: 05000000080000000a0000000b000000
+    AllowedLeft: 04000000050000000b0000000d000000
+    AllowedAbove: 03000000060000000a000000
+  - Index: 13
+    AllowedRight: 05000000060000000a0000000c000000
+    AllowedBelow: 05000000080000000a0000000b000000
+    AllowedLeft: 01000000020000000c000000
+    AllowedAbove: 01000000040000000b000000
+  - Index: 14
+    AllowedRight: 0f000000100000001a000000
+    AllowedBelow: 11000000140000001a000000
+    AllowedLeft: 00000000030000000600000009000000
+    AllowedAbove: 00000000070000000800000009000000
+  - Index: 15
+    AllowedRight: 0f000000100000001a000000
+    AllowedBelow: 12000000150000001700000018000000
+    AllowedLeft: 0e000000190000000f000000
+    AllowedAbove: 00000000070000000800000009000000
+  - Index: 16
+    AllowedRight: 00000000010000000400000007000000
+    AllowedBelow: 130000001600000019000000
+    AllowedLeft: 0e0000000f00000019000000
+    AllowedAbove: 00000000070000000800000009000000
+  - Index: 17
+    AllowedRight: 12000000130000001700000019000000
+    AllowedBelow: 11000000140000001a000000
+    AllowedLeft: 00000000030000000600000009000000
+    AllowedAbove: 0e0000001100000018000000
+  - Index: 18
+    AllowedRight: 12000000130000001700000019000000
+    AllowedBelow: 12000000150000001700000018000000
+    AllowedLeft: 1100000012000000180000001a000000
+    AllowedAbove: 0f00000012000000190000001a000000
+  - Index: 19
+    AllowedRight: 00000000010000000400000007000000
+    AllowedBelow: 13000000160000001a000000
+    AllowedLeft: 1200000011000000180000001a000000
+    AllowedAbove: 100000001300000017000000
+  - Index: 20
+    AllowedRight: 150000001600000018000000
+    AllowedBelow: 00000000010000000200000003000000
+    AllowedLeft: 00000000030000000600000009000000
+    AllowedAbove: 0e0000001100000018000000
+  - Index: 21
+    AllowedRight: 150000001600000018000000
+    AllowedBelow: 00000000010000000200000003000000
+    AllowedLeft: 140000001500000017000000
+    AllowedAbove: 0f00000012000000190000001a000000
+  - Index: 22
+    AllowedRight: 00000000010000000400000007000000
+    AllowedBelow: 00000000010000000200000003000000
+    AllowedLeft: 140000001500000017000000
+    AllowedAbove: 100000001300000017000000
+  - Index: 23
+    AllowedRight: 180000001500000016000000
+    AllowedBelow: 130000001600000019000000
+    AllowedLeft: 1200000011000000180000001a000000
+    AllowedAbove: 0f00000012000000190000001a000000
+  - Index: 24
+    AllowedRight: 12000000130000001700000019000000
+    AllowedBelow: 1a0000001100000014000000
+    AllowedLeft: 170000001400000015000000
+    AllowedAbove: 0f00000012000000190000001a000000
+  - Index: 25
+    AllowedRight: 1a0000000f00000010000000
+    AllowedBelow: 12000000150000001700000018000000
+    AllowedLeft: 1100000012000000180000001a000000
+    AllowedAbove: 170000001300000010000000
+  - Index: 26
+    AllowedRight: 12000000130000001700000019000000
+    AllowedBelow: 12000000150000001700000018000000
+    AllowedLeft: 190000000e0000000f000000
+    AllowedAbove: 18000000110000000e000000
   baseTilemap: {fileID: 1415721854}
   embelishmentTilemap: {fileID: 447348325}
 --- !u!114 &1393605018
