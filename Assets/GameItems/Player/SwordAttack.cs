@@ -12,7 +12,7 @@ public class SwordAttack : MonoBehaviour
     void Start()
     {
         swordCollider.enabled = false;
-        rightAttackOffset = transform.position;
+        rightAttackOffset = transform.localPosition;
     }
 
     public void AttackRight()
@@ -24,7 +24,7 @@ public class SwordAttack : MonoBehaviour
     public void AttackLeft()
     {
         swordCollider.enabled = true;
-        transform.localPosition = new Vector2(rightAttackOffset.x * -1, rightAttackOffset.y);
+        transform.localPosition = new Vector2(-rightAttackOffset.x, rightAttackOffset.y);
     }
 
     public void StopAttack()
@@ -34,6 +34,7 @@ public class SwordAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        print("w00t");
         if(other.tag == "Enemy")
         {
             // Deal some damage!

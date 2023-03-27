@@ -16,6 +16,8 @@ public class ChestController : MonoBehaviour, IInteractableObject
     public Sprite closedChestSprite;
     public Sprite openChestSprite;
 
+    public GameObject coinPrefab;
+
     private SpriteRenderer spriteRenderer;
 
     private bool isOpen = false;
@@ -34,6 +36,12 @@ public class ChestController : MonoBehaviour, IInteractableObject
     {
         isOpen = !isOpen;
         spriteRenderer.sprite = isOpen ? openChestSprite : closedChestSprite;
+
+        if(isOpen)
+        {
+            for(int i = 0; i < 10; i++)
+                Instantiate(coinPrefab, transform.position, Quaternion.identity);
+        }
     }
 
     // Start is called before the first frame update

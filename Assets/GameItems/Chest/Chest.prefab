@@ -138,8 +138,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4961366606118264676}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c3a9adcc4bc14b5b82e9596f167d034, type: 3}
+  m_Script: {fileID: 11500000, guid: 416b73371e32342218dee8ed96805855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   closedChestSprite: {fileID: 529518918, guid: c244b804d34e7449dba2b655f0d489f8, type: 3}
   openChestSprite: {fileID: -912499214, guid: c244b804d34e7449dba2b655f0d489f8, type: 3}
+  coinPrefab: {fileID: 3419928600189191991, guid: 3a9ee4004f94845d2b729cf6c7479e88, type: 3}

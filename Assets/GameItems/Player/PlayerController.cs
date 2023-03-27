@@ -94,6 +94,12 @@ public class PlayerController : MonoBehaviour
             interadtableObject = interactable;
             interactable.EnteredRange();
         }
+
+        var pickup = other.gameObject.GetComponent<IPickupObject>();
+        if(pickup != null)
+        {
+            pickup.Pickup();
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
