@@ -11,6 +11,9 @@ Used the [Mystic Woods](https://twitter.com/GameEndeavor) tileset for graphics.
 
 ## Screenshots
 
+Trees you can walk behind and in front of...
+![Screenshot 6](./docs/images/screenshot6a.png)![Screenshot 6](./docs/images/screenshot6b.png)
+
 Added water embelishments
 ![Screenshot 5](./docs/images/screenshot5.png)
 
