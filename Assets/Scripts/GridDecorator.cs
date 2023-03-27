@@ -70,16 +70,20 @@ public class MapSquare
 
     public void SelectTile(int selected)
     {
+        if(!possibilities.Contains(selected))
+            throw new ImpossibleCombinationException("You tried to select a tile that's not in the list of possibilities for this square");
+            
         possibilities = new List<int>() { selected };
     }
 
     public bool Restrict(IEnumerable<int> allowed)
     {
-        if(possibilities.Count > 1){
+        if(possibilities.Count > 1)
+        {
             int numRemoved = possibilities.RemoveAll(p => !allowed.Contains(p));
 
             if(possibilities.Count == 0)
-                throw new ImpossibleCombinationException();
+                throw new ImpossibleCombinationException("Restrict removed all possible options");
 
             return numRemoved > 0;
         }

@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     SpriteRenderer sprintRenderer;
 
+    IInteractableObject interadtableObject;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -74,6 +76,34 @@ public class PlayerController : MonoBehaviour
     void OnFire()
     {
         animator.SetTrigger("SwordAttack");
+    }
+
+    void OnInteract()
+    {
+        if(interadtableObject != null)
+        {
+            interadtableObject.Interact();
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        var interactable = other.gameObject.GetComponent<IInteractableObject>();
+        if(interactable != null)
+        {
+            interadtableObject = interactable;
+            interactable.EnteredRange();
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        var interactable = other.gameObject.GetComponent<IInteractableObject>();
+        if(interactable != null)
+        {
+            interactable.ExitedRange();
+            interadtableObject = null;
+        }
     }
 
     public void SwordAttack()
