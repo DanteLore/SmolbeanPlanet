@@ -213,7 +213,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -3
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -670,7 +670,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -3
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -864,9 +864,9 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: e6d528fdd58d540a8833513348bc5e17, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: 898c7915d7e9b413eb156c6823c961c7, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 7fcbf8f72f16d43a2ae8f701ee8d32b1, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: 77378f289549e4a5e9a5dfb29f82e0b2, type: 3}
   m_SortingOrder: 0
 --- !u!4 &523803408
 Transform:
@@ -892,9 +892,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 523803406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 866525cb97c7f4746aeb208efdc1e2b5, type: 3}
+  m_Script: {fileID: 11500000, guid: e4b5aaa8399c74d4b9aedbe2b1ef60c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 961812959}
+  worldMap: {fileID: 1415721854}
 --- !u!114 &693319755 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5863734061891632403, guid: b0b37e403331c4040bd9171a50059612, type: 3}
@@ -1257,12 +1259,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3410d7f87294489284b890a194214e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkWidth: 20
-  chunkHeight: 20
+  chunkWidth: 40
+  chunkHeight: 40
   player: {fileID: 961812959}
   tileSpecs:
   - Tile: {fileID: 11400000, guid: 104a40ca81719415aa11a74a0a7a0a6b, type: 2}
-    Weight: 50
+    Weight: 60
     Embelishments:
     - {fileID: 11400000, guid: 2b789b9624f4e47dd8ad84209b6b5fbd, type: 2}
     - {fileID: 11400000, guid: c0a0502f20b314f9c8c6f9a5b4e53aca, type: 2}
@@ -1352,27 +1354,27 @@ MonoBehaviour:
     embelishmentRate: 0
     Walkable: 1
   - Tile: {fileID: 11400000, guid: 8ed607376643248ea9321027a77b8d0e, type: 2}
-    Weight: 0.5
+    Weight: 0.2
     Embelishments: []
     embelishmentRate: 0
     Walkable: 0
   - Tile: {fileID: 11400000, guid: c55d75cd83bbd40b48f2f8e38b03e3f3, type: 2}
-    Weight: 0.8
+    Weight: 0.4
     Embelishments: []
     embelishmentRate: 0
     Walkable: 0
   - Tile: {fileID: 11400000, guid: 28a28b875888444ccbed1426dd6f2f13, type: 2}
-    Weight: 0.5
+    Weight: 0.2
     Embelishments: []
     embelishmentRate: 0
     Walkable: 0
   - Tile: {fileID: 11400000, guid: 8be0ce2e19d5747fd91e6ed17a3efe5e, type: 2}
-    Weight: 0.8
+    Weight: 0.4
     Embelishments: []
     embelishmentRate: 0
     Walkable: 0
   - Tile: {fileID: 11400000, guid: e365cca19bf524f1faedb3a81fbac9db, type: 2}
-    Weight: 20
+    Weight: 2
     Embelishments:
     - {fileID: 11400000, guid: 6ddf595a1646e4f718c06decee5bd202, type: 2}
     - {fileID: 11400000, guid: 8e89a64c9ad6149f7bb245e599774ad2, type: 2}
@@ -1389,42 +1391,42 @@ MonoBehaviour:
     embelishmentRate: 0.1
     Walkable: 0
   - Tile: {fileID: 11400000, guid: a2d4cd1cd28864ef0b7416a6fbe4488d, type: 2}
-    Weight: 0.8
+    Weight: 0.4
     Embelishments: []
     embelishmentRate: 0
     Walkable: 0
   - Tile: {fileID: 11400000, guid: d443c3f3b61e24ef3ad8aa2dafdd7bcb, type: 2}
-    Weight: 0.5
+    Weight: 0.2
     Embelishments: []
     embelishmentRate: 0
     Walkable: 0
   - Tile: {fileID: 11400000, guid: 6e8e91ffdb5db46239850e21ce447a34, type: 2}
-    Weight: 0.8
+    Weight: 0.4
     Embelishments: []
     embelishmentRate: 0
     Walkable: 0
   - Tile: {fileID: 11400000, guid: ff6c23fba425c46409a409126a6d37e3, type: 2}
-    Weight: 0.5
+    Weight: 0.2
     Embelishments: []
     embelishmentRate: 0
     Walkable: 0
   - Tile: {fileID: 11400000, guid: 8465c94bc08c74ff68ef7635cdf73df3, type: 2}
-    Weight: 0.5
+    Weight: 0.1
     Embelishments: []
     embelishmentRate: 0
     Walkable: 0
   - Tile: {fileID: 11400000, guid: 5eab528ba418348e8b6a63043d140ce2, type: 2}
-    Weight: 0.5
+    Weight: 0.1
     Embelishments: []
     embelishmentRate: 0
     Walkable: 0
   - Tile: {fileID: 11400000, guid: ceb18615cd1124d878343f880fa82c4a, type: 2}
-    Weight: 0.5
+    Weight: 0.1
     Embelishments: []
     embelishmentRate: 0
     Walkable: 0
   - Tile: {fileID: 11400000, guid: 3d9615394a53f42d1ab7605d7e444dff, type: 2}
-    Weight: 0.5
+    Weight: 0.1
     Embelishments: []
     embelishmentRate: 0
     Walkable: 0

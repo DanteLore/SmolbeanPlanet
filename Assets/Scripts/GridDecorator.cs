@@ -94,7 +94,7 @@ public class Chunk
     private Vector2Int origin;
     private int height;
     private int width;
-    NeighbourSpec[] neighbourSpecs;
+    Dictionary<int, NeighbourSpec> neighbourSpecs;
     TileSpec[] tileSpecs;
     System.Random r = new System.Random();
 
@@ -131,7 +131,7 @@ public class Chunk
         this.origin = origin;
         this.width = width;
         this.height = height;
-        this.neighbourSpecs = neighbourSpecs;
+        this.neighbourSpecs = neighbourSpecs.ToDictionary(n => n.Index);
         this.tileSpecs = tileSpecs;
         this.map = new MapSquare[this.width * this.height];
         this.mapIndex = new MapIndexer(map, this.width);
@@ -177,7 +177,7 @@ public class Chunk
         var probabilities = square.Possibilities.Select(p => tileSpecs[p].Weight + (r.NextDouble() * noiseWeight));
 
         // Order by priority, biggest first
-        var choices = probabilities.Zip(square.Possibilities, (a, b) => (P: a, I: b)).OrderByDescending(c => c.P);
+        var choices = probabilities.Zip(square.Possibilities, (a, b) => (P: a, I: b)).OrderByDescending(c => c.P).ToList();
         
         double max = choices.Sum(c => c.P);
         double cutoff = r.NextDouble() * max;
@@ -203,7 +203,7 @@ public class Chunk
         if (square.x < width - 1)
         {
             var other = map[square.y * width + square.x + 1];
-            var allowed = neighbourSpecs.Where(s => square.Possibilities.Contains(s.Index)).SelectMany(x => x.AllowedRight).Distinct();
+            var allowed = square.Possibilities.Select(p => neighbourSpecs[p]).SelectMany(x => x.AllowedRight).Distinct().ToList();
             if(other.Restrict(allowed))
                 recurse.Add(other);
         }
@@ -212,7 +212,7 @@ public class Chunk
         if (square.y > 0)
         {
             var other = map[(square.y - 1) * width + square.x];
-            var allowed = neighbourSpecs.Where(s => square.Possibilities.Contains(s.Index)).SelectMany(x => x.AllowedBelow).Distinct();
+            var allowed = square.Possibilities.Select(p => neighbourSpecs[p]).SelectMany(x => x.AllowedBelow).Distinct().ToList();
             if(other.Restrict(allowed))
                 recurse.Add(other);
         }
@@ -221,7 +221,7 @@ public class Chunk
         if (square.x > 0)
         {
             var other = map[square.y * width + square.x - 1];
-            var allowed = neighbourSpecs.Where(s => square.Possibilities.Contains(s.Index)).SelectMany(x => x.AllowedLeft).Distinct();
+            var allowed = square.Possibilities.Select(p => neighbourSpecs[p]).SelectMany(x => x.AllowedLeft).Distinct().ToList();
             if(other.Restrict(allowed))
                 recurse.Add(other);
         }
@@ -230,7 +230,7 @@ public class Chunk
         if (square.y < height - 1)
         {
             var other = map[(square.y + 1) * width + square.x];
-            var allowed = neighbourSpecs.Where(s => square.Possibilities.Contains(s.Index)).SelectMany(x => x.AllowedAbove).Distinct();
+            var allowed = square.Possibilities.Select(p => neighbourSpecs[p]).SelectMany(x => x.AllowedAbove).Distinct().ToList();
             if(other.Restrict(allowed))
                 recurse.Add(other);
         }
@@ -247,7 +247,7 @@ public class Chunk
             int tile = rightNeighbour.Map[0, i].TileIndex;
 
             var target = Map[width - 1, i];
-            var allowed = neighbourSpecs.First(s => s.Index == tile).AllowedLeft;
+            var allowed = neighbourSpecs[tile].AllowedLeft;
             if(target.Restrict(allowed))
                 recurse.Add(target);
         }
@@ -264,7 +264,7 @@ public class Chunk
             int tile = leftNeighbour.Map[width - 1, i].TileIndex;
 
             var target = Map[0, i];
-            var allowed = neighbourSpecs.First(s => s.Index == tile).AllowedRight;
+            var allowed = neighbourSpecs[tile].AllowedRight;
             if(target.Restrict(allowed))
                 recurse.Add(target);
         }
@@ -281,7 +281,7 @@ public class Chunk
             int tile = topNeighbour.Map[i, 0].TileIndex;
 
             var target = Map[i, height - 1];
-            var allowed = neighbourSpecs.First(s => s.Index == tile).AllowedBelow;
+            var allowed = neighbourSpecs[tile].AllowedBelow;
             if(target.Restrict(allowed))
                 recurse.Add(target);
         }
@@ -298,7 +298,7 @@ public class Chunk
             int tile = bottomNeighbour.Map[i, height - 1].TileIndex;
 
             var target = Map[i, 0];
-            var allowed = neighbourSpecs.First(s => s.Index == tile).AllowedAbove;
+            var allowed = neighbourSpecs[tile].AllowedAbove;
             if(target.Restrict(allowed))
                 recurse.Add(target);
         }
@@ -374,6 +374,9 @@ public class GridDecorator : MonoBehaviour
             {
                 try
                 {
+                    var watch = new System.Diagnostics.Stopwatch();
+                    watch.Start();
+
                     chunk = new Chunk(vector, chunkWidth, chunkHeight, neighbourSpecs, tileSpecs);
 
                     // Copy edges from existing neighbours
@@ -394,7 +397,8 @@ public class GridDecorator : MonoBehaviour
                         chunk.ProcessNeighbourChunkOnBottom(chunks[bottomLocation]);
 
                     chunk.BuildTilemap();
-                    print($"Wave function collapse completed");
+                    watch.Stop();
+                    print($"Wave function collapse completed in {watch.ElapsedMilliseconds}");
                     done = true;
                 }
                 catch(ImpossibleCombinationException)

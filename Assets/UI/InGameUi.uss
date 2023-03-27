@@ -1,5 +1,5 @@
 .ingametext {
-    color: rgba(113, 101, 0, 255);
+    color: rgb(113, 101, 0);
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
@@ -8,6 +8,6 @@
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
-    -unity-font: url('project://database/Assets/UI/Minecraftia-Regular.ttf?fileID=12800000&guid=6288f83eaa9fb47d6b48edad1cde69e5&type=3#Minecraftia-Regular');
-    -unity-font-definition: url('project://database/Assets/UI/Minecraftia-Regular%20SDF.asset?fileID=11400000&guid=1fe37881f21834c90843642ef0966d68&type=2#Minecraftia-Regular SDF');
+    -unity-font: url('project://database/Assets/UI/Minecraftia-Regular.ttf?fileID=12800000&guid=1af0916057119467c8f155523ffb3548&type=3#Minecraftia-Regular');
+    -unity-font-definition: url('project://database/Assets/UI/Minecraftia-Regular%20SDF.asset?fileID=11400000&guid=6d5bbdb32a9de41d798abd89dd3f26cb&type=2#Minecraftia-Regular SDF');
 }
