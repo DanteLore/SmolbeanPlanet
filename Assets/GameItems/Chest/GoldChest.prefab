@@ -143,4 +143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   closedChestSprite: {fileID: 1224093019, guid: 4502fe34d9dd74698bea8ee73a347d91, type: 3}
   openChestSprite: {fileID: -912030686, guid: 4502fe34d9dd74698bea8ee73a347d91, type: 3}
-  coinPrefab: {fileID: 3419928600189191991, guid: 3a9ee4004f94845d2b729cf6c7479e88, type: 3}
+  Drops:
+  - Prefab: {fileID: 3419928600189191991, guid: 3a9ee4004f94845d2b729cf6c7479e88, type: 3}
+    Count: 15
+  - Prefab: {fileID: 4484653337007908842, guid: 88fe4dcf34b8f4251b1bbcfb490b11c8, type: 3}
+    Count: 5

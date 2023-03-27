@@ -11,8 +11,7 @@ public class PickupController : MonoBehaviour, IPickupObject
 {   
     Vector3 burstVector;
 
-    Collider2D collider;
-
+    Collider2D pickupCollider;
 
     float createdTime;
 
@@ -24,8 +23,8 @@ public class PickupController : MonoBehaviour, IPickupObject
     // Start is called before the first frame update
     void Start()
     {
-        collider = GetComponent<Collider2D>();
-        collider.enabled = false;
+        pickupCollider = GetComponent<Collider2D>();
+        pickupCollider.enabled = false;
 
         float r = SplashRadius;
         burstVector = new Vector3(Random.Range(-r, r), 0.0f, 0.0f);
@@ -43,9 +42,9 @@ public class PickupController : MonoBehaviour, IPickupObject
             burstDuration -= Time.deltaTime;
             transform.position += burstVector * Time.deltaTime;
         }
-        else if(!collider.enabled)
+        else if(!pickupCollider.enabled)
         {
-            collider.enabled = true;
+            pickupCollider.enabled = true;
         }
 
         float age = Time.timeSinceLevelLoad - createdTime;

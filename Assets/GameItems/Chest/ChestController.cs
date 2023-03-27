@@ -11,12 +11,20 @@ public interface IInteractableObject
     public void Interact();
 }
 
+[System.Serializable]
+public struct DropConfig
+{
+    public GameObject Prefab;
+
+    public int Count;
+}
+
 public class ChestController : MonoBehaviour, IInteractableObject
 {
     public Sprite closedChestSprite;
     public Sprite openChestSprite;
 
-    public GameObject coinPrefab;
+    public DropConfig[] Drops;
 
     private SpriteRenderer spriteRenderer;
 
@@ -39,8 +47,11 @@ public class ChestController : MonoBehaviour, IInteractableObject
 
         if(isOpen)
         {
-            for(int i = 0; i < 10; i++)
-                Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            foreach(var drop in Drops)
+            {
+                for(int i = 0; i < drop.Count; i++)
+                    Instantiate(drop.Prefab, transform.position, Quaternion.identity);
+            }
         }
     }
 
