@@ -12,6 +12,9 @@ Some very lame sprites of my own were creared with (Piskel)[https://www.piskelap
 
 ## Screenshots
 
+Everyone loves coins and hearts!
+![Screenshot 7](./docs/images/screenshot7.png)
+
 Trees you can walk behind and in front of...
 
 ![Screenshot 6](./docs/images/screenshot6a.png)![Screenshot 6](./docs/images/screenshot6b.png)

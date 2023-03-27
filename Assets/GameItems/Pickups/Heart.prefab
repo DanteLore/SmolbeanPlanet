@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   burstDuration: 0.3
   SplashRadius: 0.8
-  lifespanSeconds: 5
+  lifespanSeconds: 10
 --- !u!70 &7759326682669391817
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
