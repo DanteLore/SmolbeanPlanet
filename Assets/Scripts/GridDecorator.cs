@@ -156,10 +156,6 @@ public class GridDecorator : MonoBehaviour
         var chunks = obj as List<Chunk>;
         foreach(Chunk chunk in chunks)
             DrawChunk(chunk);
-
-        foreach(var creator in GetComponents<IObjectCreator>())
-            foreach(Chunk chunk in chunks)
-                creator.CreateObjects(chunk, baseTilemap);
     }
 
     private Vector2Int[] GetNeighbourCoords(Vector2Int currentTile)
@@ -202,5 +198,8 @@ public class GridDecorator : MonoBehaviour
                 }
             }
         }
+
+        foreach(var creator in GetComponents<IObjectCreator>())
+            creator.CreateObjects(chunk, baseTilemap);
     }
 }

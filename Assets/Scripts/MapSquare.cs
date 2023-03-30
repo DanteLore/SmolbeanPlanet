@@ -14,6 +14,7 @@ public class MapSquare
     {
         get { return possibilities; }
     }
+    
     public int TileIndex
     {
         get { return possibilities.FirstOrDefault(); }

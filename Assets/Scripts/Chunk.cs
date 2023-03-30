@@ -97,7 +97,7 @@ public class Chunk
     private int SelectWeightedRandomTile(MapSquare square)
     {
         // Add some noise to the values so we get a random sort order and break ties between items with the same weighting in a random way
-        float noiseWeight = 0.01f;
+        float noiseWeight = 0.001f;
         var probabilities = square.Possibilities.Select(p => tileSpecs[p].Weight + (r.NextDouble() * noiseWeight));
 
         // Order by priority, biggest first
