@@ -98,7 +98,10 @@ public class PlayerController : MonoBehaviour
         var pickup = other.gameObject.GetComponent<IPickupObject>();
         if(pickup != null)
         {
-            pickup.Pickup();
+            var myStats = GetComponent<CharacterStats>();
+            myStats.ProcessPickup(pickup.PickupName);
+
+            pickup.PickedUp();
         }
     }
 

@@ -145,6 +145,7 @@ MonoBehaviour:
   burstDuration: 0.2
   SplashRadius: 2
   lifespanSeconds: 8
+  pickupName: Coin
 --- !u!70 &1041659213805228953
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

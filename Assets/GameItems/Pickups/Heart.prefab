@@ -123,6 +123,7 @@ MonoBehaviour:
   burstDuration: 0.2
   SplashRadius: 2
   lifespanSeconds: 10
+  pickupName: Heart
 --- !u!70 &7759326682669391817
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

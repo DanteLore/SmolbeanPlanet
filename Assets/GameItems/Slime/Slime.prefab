@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6683073544267964560}
   - component: {fileID: -8615594082166129341}
   - component: {fileID: -53534568957325904}
-  - component: {fileID: 1467630431818958260}
   - component: {fileID: 4912225464058103634}
+  - component: {fileID: 8262227458881819182}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Enemy
@@ -125,18 +125,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.05598718}
   m_Size: {x: 0.16476303, y: 0.16476303}
   m_Direction: 0
---- !u!114 &1467630431818958260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4197811198771343788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b61b9407e58cf4eafadc0f9159d2f660, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &4912225464058103634
 Animator:
   serializedVersion: 5
@@ -158,3 +146,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8262227458881819182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4197811198771343788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58146c665b1b34d30a5a80764bd5a6c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  startingHealth: 10
+  coins: 0
+  mana: 0

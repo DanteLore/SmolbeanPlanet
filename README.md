@@ -12,6 +12,9 @@ Some very lame sprites of my own were created with [Piskel](https://www.piskelap
 
 ## Screenshots
 
+Some basic stats on the UI, collectable health, coins and mana jewels
+![Screenshot 9](./docs/images/screenshot9.png)
+
 Trees and chests everywhere!
 ![Screenshot 8](./docs/images/screenshot8.png)
 

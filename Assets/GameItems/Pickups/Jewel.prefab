@@ -102,6 +102,7 @@ MonoBehaviour:
   burstDuration: 0.2
   SplashRadius: 2
   lifespanSeconds: 5
+  pickupName: Jewel
 --- !u!70 &736015058417504536
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

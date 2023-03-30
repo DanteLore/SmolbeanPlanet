@@ -4,21 +4,20 @@ using UnityEngine;
 
 public interface IPickupObject
 {
-    void Pickup();
+    void PickedUp();
+    string PickupName { get; }
 }
 
 public class PickupController : MonoBehaviour, IPickupObject
 {   
     Vector3 burstVector;
-
     Collider2D pickupCollider;
-
     float createdTime;
-
     public float burstDuration = 0.3f;
     public float SplashRadius = 0.8f;
-
     public float lifespanSeconds = 5.0f;
+    public string pickupName = "Unknown";
+    public string PickupName { get { return pickupName; } }
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +53,7 @@ public class PickupController : MonoBehaviour, IPickupObject
         }
     }
 
-    public void Pickup()
+    public void PickedUp()
     {
         Destroy(gameObject);
     }
