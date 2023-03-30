@@ -12,6 +12,9 @@ Some very lame sprites of my own were created with [Piskel](https://www.piskelap
 
 ## Screenshots
 
+Trees and chests everywhere!
+![Screenshot 8](./docs/images/screenshot8.png)
+
 Everyone loves coins and hearts!
 ![Screenshot 7](./docs/images/screenshot7.png)
 
