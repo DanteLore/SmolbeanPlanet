@@ -63,6 +63,9 @@ public class GridDecorator : MonoBehaviour
         }
 
         float range = 1.0f;
+
+        player.transform.position += baseTilemap.GetCellCenterWorld(new Vector3Int(0, 0, 0));
+
         while(!CurrentSquare.Tile.Walkable)
         {
             print($"Moving player to find a walkable tile.  Range = {range}");

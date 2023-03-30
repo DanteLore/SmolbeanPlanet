@@ -28,7 +28,7 @@ public class TreeCreator : MonoBehaviour, IObjectCreator
             int worldX = coord.x + chunk.Origin.x;
             int worldY = coord.y + chunk.Origin.y;
 
-            var pos = tilemap.CellToWorld(new Vector3Int(worldX, worldY, 0));
+            var pos = tilemap.GetCellCenterWorld(new Vector3Int(worldX, worldY, 0));
 
             var chest = Instantiate(treePrefab, pos, Quaternion.identity);
         }

@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public interface IObjectCreator
-{
-    public void CreateObjects(Chunk chunk, Tilemap tilemap);
-}
-
 public class ChestCreator : MonoBehaviour, IObjectCreator
 {
     public GameObject chestPrefab;
@@ -33,7 +28,7 @@ public class ChestCreator : MonoBehaviour, IObjectCreator
                 int worldX = chunkX + chunk.Origin.x;
                 int worldY = chunkY + chunk.Origin.y;
 
-                var pos = tilemap.CellToWorld(new Vector3Int(worldX, worldY, 0));
+                var pos = tilemap.GetCellCenterWorld(new Vector3Int(worldX, worldY, 0));
 
                 var prefab = (p < goldChestProbability) ? goldChestPrefab : chestPrefab;
                 var chest = Instantiate(prefab, pos, Quaternion.identity);
