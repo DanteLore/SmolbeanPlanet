@@ -34,7 +34,6 @@ public class SwordAttack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        print("w00t");
         if(other.tag == "Enemy")
         {
             // Deal some damage!

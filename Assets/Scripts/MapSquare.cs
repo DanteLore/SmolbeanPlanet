@@ -8,6 +8,7 @@ public class MapSquare
     private List<int> possibilities;
     public int x;
     public int y;
+    TileSpec[] tileSpecs;
 
     public IEnumerable<int> Possibilities
     {
@@ -17,12 +18,18 @@ public class MapSquare
     {
         get { return possibilities.FirstOrDefault(); }
     }
+    
+    public TileSpec Tile
+    {
+        get{ return tileSpecs[TileIndex]; }
+    }
 
-    public MapSquare(int x, int y, IEnumerable<int> possibilities)
+    public MapSquare(int x, int y, IEnumerable<int> possibilities, TileSpec[] tileSpecs)
     {
         this.x = x;
         this.y = y;
         this.possibilities = possibilities.ToList();
+        this.tileSpecs = tileSpecs;
     }
 
     public void SelectTile(int selected)

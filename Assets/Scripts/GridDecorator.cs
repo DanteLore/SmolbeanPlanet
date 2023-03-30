@@ -22,12 +22,55 @@ public class GridDecorator : MonoBehaviour
 
     private Dictionary<Vector2Int, Chunk> chunks = new Dictionary<Vector2Int, Chunk>();
 
+    private bool running = false;
+
+    private Vector3Int playerPos;
+    public Vector3Int PlayerPos
+    {
+        get { return playerPos; }
+        set 
+        {
+            if(value != playerPos)
+            {
+                playerPos = value;
+                PlayerMoved();
+            }
+        }
+    }
+
+    public Vector2Int CurrentChunkCoords
+    {
+        get { return new Vector2Int(DivTowardsNegInfinity((int)PlayerPos.x, chunkWidth) * chunkWidth, DivTowardsNegInfinity((int)PlayerPos.y, chunkHeight) * chunkHeight); }
+    }
+
+    public Chunk CurrentChunk
+    {
+        get { return chunks[CurrentChunkCoords]; }
+    }
+
+    public MapSquare CurrentSquare
+    {
+        get { return CurrentChunk.Map[ PlayerPos.x - CurrentChunkCoords.x, PlayerPos.y - CurrentChunkCoords.y ]; }
+    }
+
+
     void Start()
     {
         var chunks = AddNewChunks(GetNeighbourCoords(new Vector2Int(0, 0)));
         foreach(Chunk chunk in chunks)
         {
             DrawChunk(chunk);
+        }
+
+        float range = 1.0f;
+        while(!CurrentSquare.Tile.Walkable)
+        {
+            print($"Moving player to find a walkable tile.  Range = {range}");
+            float dX = Random.Range(-range, range);
+            float dY = Random.Range(-range, range);
+            player.transform.position += new Vector3(dX, dY, 0.0f);
+            PlayerPos = baseTilemap.WorldToCell(player.transform.position);
+            range += 1;
         }
     }
 
@@ -36,26 +79,21 @@ public class GridDecorator : MonoBehaviour
         return a < 0 ? (a - b) / b : a / b;
     }
 
-    private Vector3Int playerPos;
-    private bool running = false;
-
     void Update()
     {
-        var pos = baseTilemap.WorldToCell(player.transform.position);
+        PlayerPos = baseTilemap.WorldToCell(player.transform.position);
+    }
 
-        if(pos != playerPos)
+    void PlayerMoved()
+    {
+        var missingChunkCoords = GetNeighbourCoords(CurrentChunkCoords).Where(v => !chunks.ContainsKey(v)).ToArray();
+
+        if(missingChunkCoords.Any() && !running)
         {
-            playerPos = pos;
-            var currentChunkCoords = new Vector2Int(DivTowardsNegInfinity((int)pos.x, chunkWidth) * chunkWidth, DivTowardsNegInfinity((int)pos.y, chunkHeight) * chunkHeight);
-            var missingChunkCoords = GetNeighbourCoords(currentChunkCoords).Where(v => !chunks.ContainsKey(v)).ToArray();
-
-            if(missingChunkCoords.Any() && !running)
-            {
-                running = true;
-                ThreadedDataRequester.RequestData(() => {
-                    return AddNewChunks(missingChunkCoords);
-                }, OnChunksDecorated);
-            }
+            running = true;
+            ThreadedDataRequester.RequestData(() => {
+                return AddNewChunks(missingChunkCoords);
+            }, OnChunksDecorated);
         }
     }
 
@@ -118,6 +156,10 @@ public class GridDecorator : MonoBehaviour
         var chunks = obj as List<Chunk>;
         foreach(Chunk chunk in chunks)
             DrawChunk(chunk);
+
+        foreach(var creator in GetComponents<IObjectCreator>())
+            foreach(Chunk chunk in chunks)
+                creator.CreateObjects(chunk, baseTilemap);
     }
 
     private Vector2Int[] GetNeighbourCoords(Vector2Int currentTile)

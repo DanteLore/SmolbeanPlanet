@@ -40,6 +40,16 @@ public class Chunk
         get { return origin; }
     }
 
+    public int Width
+    {
+        get { return width; }
+    }
+
+    public int Height
+    {
+        get { return height; }
+    }
+
     public Chunk(Vector2Int origin, int width, int height, NeighbourSpec[] neighbourSpecs, TileSpec[] tileSpecs)
     {
         this.origin = origin;
@@ -55,7 +65,7 @@ public class Chunk
         {
             for (int y = 0; y < this.height; y++)
             {
-                map[(y * this.width) + x] = new MapSquare(x, y, neighbourSpecs.Select(n => n.Index));
+                map[(y * this.width) + x] = new MapSquare(x, y, neighbourSpecs.Select(n => n.Index), tileSpecs);
             }
         }
     }

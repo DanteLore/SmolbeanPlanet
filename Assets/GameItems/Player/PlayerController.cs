@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        sprintRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
+        sprintRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     void FixedUpdate()

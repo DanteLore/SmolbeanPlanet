@@ -8,7 +8,7 @@ Who knows what (if anything) will follow!
 
 Followed [this](https://www.youtube.com/watch?v=7iYWpzL9GkM) tutorial to get me started.
 Used the [Mystic Woods](https://twitter.com/GameEndeavor) tileset for graphics.
-Some very lame sprites of my own were creared with [Piskel](https://www.piskelapp.com/) which is a free, web-based editor.
+Some very lame sprites of my own were created with [Piskel](https://www.piskelapp.com/) which is a free, web-based editor.
 
 ## Screenshots
 
