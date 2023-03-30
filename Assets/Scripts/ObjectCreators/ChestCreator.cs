@@ -11,11 +11,20 @@ public interface IObjectCreator
 public class ChestCreator : MonoBehaviour, IObjectCreator
 {
     public GameObject chestPrefab;
+    public GameObject goldChestPrefab;
+
+    public float goldChestProbability = 0.1f;
+
+    public int minChestsPerChunk = 1;
+
+    public int maxChestsPerChunk = 5;
 
     public void CreateObjects(Chunk chunk, Tilemap tilemap)
     {
-        for(int i = 0; i < 10; i++)
+        int count = Random.Range(minChestsPerChunk, maxChestsPerChunk);
+        while(count-- > 0)
         {
+            float p = Random.Range(0.0f, 1.0f);
             int chunkX = Random.Range(0, chunk.Width - 1);
             int chunkY = Random.Range(0, chunk.Height - 1);
 
@@ -26,7 +35,8 @@ public class ChestCreator : MonoBehaviour, IObjectCreator
 
                 var pos = tilemap.CellToWorld(new Vector3Int(worldX, worldY, 0));
 
-                var chest = Instantiate(chestPrefab, pos, Quaternion.identity);
+                var prefab = (p < goldChestProbability) ? goldChestPrefab : chestPrefab;
+                var chest = Instantiate(prefab, pos, Quaternion.identity);
             }
         }
     }
