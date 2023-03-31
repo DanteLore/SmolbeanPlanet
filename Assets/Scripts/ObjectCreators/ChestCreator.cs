@@ -31,7 +31,9 @@ public class ChestCreator : MonoBehaviour, IObjectCreator
                 var pos = tilemap.GetCellCenterWorld(new Vector3Int(worldX, worldY, 0));
 
                 var prefab = (p < goldChestProbability) ? goldChestPrefab : chestPrefab;
-                var chest = Instantiate(prefab, pos, Quaternion.identity);
+                Instantiate(prefab, pos, Quaternion.identity);
+
+                chunk.Map[chunkX, chunkY].ObjectsOnTile++;
             }
         }
     }

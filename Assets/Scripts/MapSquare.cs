@@ -10,6 +10,8 @@ public class MapSquare
     public int y;
     TileSpec[] tileSpecs;
 
+    public int ObjectsOnTile {get; set;} = 0;
+
     public IEnumerable<int> Possibilities
     {
         get { return possibilities; }

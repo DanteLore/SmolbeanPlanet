@@ -21,7 +21,7 @@ public class Chunk
 
         public MapSquare this[int x, int y]
         {
-            get { return map[((y) * width) + x]; }
+            get { return map[(y * width) + x]; }
         }
 
         public MapIndexer(MapSquare[] map, int width)
@@ -71,8 +71,7 @@ public class Chunk
             }
         }
     }
-
-    [BurstCompile]
+    
     public void BuildTilemap()
     {
         int loopLimit = height * width;
