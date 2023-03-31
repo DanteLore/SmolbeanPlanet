@@ -103,7 +103,7 @@ BoxCollider2D:
   m_Offset: {x: -0.00000010430813, y: 0.0039320886}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.2}
     oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
@@ -143,6 +143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   closedChestSprite: {fileID: 529518918, guid: c244b804d34e7449dba2b655f0d489f8, type: 3}
   openChestSprite: {fileID: -912499214, guid: c244b804d34e7449dba2b655f0d489f8, type: 3}
+  closedEmptyChestSprite: {fileID: 30699126, guid: c244b804d34e7449dba2b655f0d489f8, type: 3}
+  openEmptyChestSprite: {fileID: -1353767824, guid: c244b804d34e7449dba2b655f0d489f8, type: 3}
   Drops:
   - Prefab: {fileID: 3419928600189191991, guid: 3a9ee4004f94845d2b729cf6c7479e88, type: 3}
     Count: 8

@@ -846,6 +846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 961812959}
+  playerStats: {fileID: 0}
   worldMap: {fileID: 1415721854}
 --- !u!114 &693319755 stripped
 MonoBehaviour:
@@ -1211,8 +1212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3410d7f87294489284b890a194214e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkWidth: 32
-  chunkHeight: 24
+  chunkWidth: 64
+  chunkHeight: 32
   player: {fileID: 961812959}
   tileSpecs:
   - Tile: {fileID: 11400000, guid: 104a40ca81719415aa11a74a0a7a0a6b, type: 2}
@@ -1326,7 +1327,7 @@ MonoBehaviour:
     embelishmentRate: 0
     Walkable: 0
   - Tile: {fileID: 11400000, guid: e365cca19bf524f1faedb3a81fbac9db, type: 2}
-    Weight: 4
+    Weight: 10
     Embelishments:
     - {fileID: 11400000, guid: 6ddf595a1646e4f718c06decee5bd202, type: 2}
     - {fileID: 11400000, guid: 8e89a64c9ad6149f7bb245e599774ad2, type: 2}

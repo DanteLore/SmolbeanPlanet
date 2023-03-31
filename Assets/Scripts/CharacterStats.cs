@@ -16,10 +16,13 @@ public class CharacterStats : MonoBehaviour
         }
         set 
         { 
+            float delta = value - health;
             health = value;
 
             if(health <= 0.0f)
                 Dead();
+            else if(delta < 0 && animator != null)
+                animator.SetTrigger("Ouch");
         }
     }
 

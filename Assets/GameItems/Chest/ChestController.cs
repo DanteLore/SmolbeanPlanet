@@ -24,16 +24,21 @@ public class ChestController : MonoBehaviour, IInteractableObject
     public Sprite closedChestSprite;
     public Sprite openChestSprite;
 
+    public Sprite closedEmptyChestSprite;
+    public Sprite openEmptyChestSprite;
+
     public DropConfig[] Drops;
 
     private SpriteRenderer spriteRenderer;
 
     private bool isOpen = false;
 
+    private bool isFull = true;
+
     public void ExitedRange()
     {
         isOpen = false;
-        spriteRenderer.sprite = closedChestSprite;
+        spriteRenderer.sprite = isFull ? closedChestSprite : closedEmptyChestSprite;;
     }
 
     public void EnteredRange()
@@ -43,10 +48,15 @@ public class ChestController : MonoBehaviour, IInteractableObject
     public void Interact()
     {
         isOpen = !isOpen;
-        spriteRenderer.sprite = isOpen ? openChestSprite : closedChestSprite;
 
-        if(isOpen)
+        if(isFull)
+            spriteRenderer.sprite = isOpen ? openChestSprite : closedChestSprite;
+        else
+            spriteRenderer.sprite = isOpen ? openEmptyChestSprite : closedEmptyChestSprite;
+
+        if(isOpen && isFull)
         {
+            isFull = false;
             foreach(var drop in Drops)
             {
                 for(int i = 0; i < drop.Count; i++)

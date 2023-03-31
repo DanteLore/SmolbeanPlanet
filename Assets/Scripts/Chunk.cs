@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.Burst;
+
 public class Chunk
 {
     private MapSquare[] map;
@@ -70,6 +72,7 @@ public class Chunk
         }
     }
 
+    [BurstCompile]
     public void BuildTilemap()
     {
         int loopLimit = height * width;
@@ -212,6 +215,7 @@ public class Chunk
 
         recurse.ForEach(s => Collapse(map, s));
     }
+
 
     internal void ProcessNeighbourChunkOnBottom(Chunk bottomNeighbour)
     {

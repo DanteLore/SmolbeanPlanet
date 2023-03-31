@@ -11,14 +11,14 @@ public class SwordAttack : MonoBehaviour
 
     void Start()
     {
-        swordCollider.enabled = false;
         rightAttackOffset = transform.localPosition;
+        swordCollider.enabled = false;
     }
 
     public void AttackRight()
     {
-        swordCollider.enabled = true;
         transform.localPosition = rightAttackOffset;
+        swordCollider.enabled = true;
     }
 
     public void AttackLeft()
@@ -29,11 +29,13 @@ public class SwordAttack : MonoBehaviour
 
     public void StopAttack()
     {
+        print("Attack stopped");
         swordCollider.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        print("Trigger Enter");
         if(other.tag == "Enemy")
         {
             // Deal some damage!
