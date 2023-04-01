@@ -51,6 +51,10 @@ public class CharacterStats : MonoBehaviour
 
     public void RemoveSelf()
     {
+        var drops = GetComponent<DropController>();
+        if(drops)
+            drops.Drop();
+
         Destroy(gameObject);
     }
 

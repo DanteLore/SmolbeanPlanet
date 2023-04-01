@@ -11,14 +11,6 @@ public interface IInteractableObject
     public void Interact();
 }
 
-[System.Serializable]
-public struct DropConfig
-{
-    public GameObject Prefab;
-
-    public int Count;
-}
-
 public class ChestController : MonoBehaviour, IInteractableObject
 {
     public Sprite closedChestSprite;
@@ -27,18 +19,15 @@ public class ChestController : MonoBehaviour, IInteractableObject
     public Sprite closedEmptyChestSprite;
     public Sprite openEmptyChestSprite;
 
-    public DropConfig[] Drops;
-
     private SpriteRenderer spriteRenderer;
 
+    private DropController drops;
+
     private bool isOpen = false;
-
-    private bool isFull = true;
-
     public void ExitedRange()
     {
         isOpen = false;
-        spriteRenderer.sprite = isFull ? closedChestSprite : closedEmptyChestSprite;;
+        spriteRenderer.sprite = drops.IsFull ? closedChestSprite : closedEmptyChestSprite;;
     }
 
     public void EnteredRange()
@@ -49,26 +38,20 @@ public class ChestController : MonoBehaviour, IInteractableObject
     {
         isOpen = !isOpen;
 
-        if(isFull)
+        if(drops.IsFull)
             spriteRenderer.sprite = isOpen ? openChestSprite : closedChestSprite;
         else
             spriteRenderer.sprite = isOpen ? openEmptyChestSprite : closedEmptyChestSprite;
 
-        if(isOpen && isFull)
-        {
-            isFull = false;
-            foreach(var drop in Drops)
-            {
-                for(int i = 0; i < drop.Count; i++)
-                    Instantiate(drop.Prefab, transform.position, Quaternion.identity);
-            }
-        }
+        if(isOpen)
+            drops.Drop();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        drops = GetComponent<DropController>();
     }
 
     // Update is called once per frame

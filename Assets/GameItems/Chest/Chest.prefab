@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4810965262942907755}
   - component: {fileID: 8895977167104497014}
   - component: {fileID: 7226891571515297196}
+  - component: {fileID: 8340503520523117524}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Untagged
@@ -145,10 +146,22 @@ MonoBehaviour:
   openChestSprite: {fileID: -912499214, guid: c244b804d34e7449dba2b655f0d489f8, type: 3}
   closedEmptyChestSprite: {fileID: 30699126, guid: c244b804d34e7449dba2b655f0d489f8, type: 3}
   openEmptyChestSprite: {fileID: -1353767824, guid: c244b804d34e7449dba2b655f0d489f8, type: 3}
+--- !u!114 &8340503520523117524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4961366606118264676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d8f9e4767824da8a511c79df39fe5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   Drops:
   - Prefab: {fileID: 3419928600189191991, guid: 3a9ee4004f94845d2b729cf6c7479e88, type: 3}
-    Count: 8
+    Count: 10
   - Prefab: {fileID: 4484653337007908842, guid: 88fe4dcf34b8f4251b1bbcfb490b11c8, type: 3}
-    Count: 2
+    Count: 4
   - Prefab: {fileID: 6527369027682570218, guid: 9306329aa997249c3b85411d95491859, type: 3}
-    Count: 2
+    Count: 4
