@@ -8,11 +8,12 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 0.5f;
     public ContactFilter2D movementFilter;
     public float collisionOffset = 0.05f;
-
-    public SwordAttack swordAttack;
+    public Transform attackPoint;
+    public float attackRadius = 0.5f;
+    public float attackDamage = 5.0f;
 
     bool canMove = true;
-
+    bool canAttack = true;
     Vector2 movementInput;
     Rigidbody2D rb;
     Animator animator;
@@ -75,7 +76,11 @@ public class PlayerController : MonoBehaviour
 
     void OnFire()
     {
-        animator.SetTrigger("SwordAttack");
+        if(canAttack)
+        {
+            canAttack = false;
+            animator.SetTrigger("SwordAttack");
+        }
     }
 
     void OnInteract()
@@ -117,30 +122,26 @@ public class PlayerController : MonoBehaviour
 
     public void SwordAttack()
     {
-        LockMovement();
-        if(sprintRenderer.flipX)
+        Vector3 attackCentre = (sprintRenderer.flipX) ? transform.TransformPoint(new Vector3(-1 * attackPoint.localPosition.x, attackPoint.localPosition.y, 0)) : attackPoint.position;
+
+        foreach(var obj in Physics2D.OverlapCircleAll(attackCentre, attackRadius))
         {
-            swordAttack.AttackLeft();
-        }
-        else
-        {
-            swordAttack.AttackRight();
+            CharacterStats stats;
+            if(obj.tag == "Enemy" && obj.TryGetComponent<CharacterStats>(out stats))
+            {
+                stats.Health -= attackDamage;
+            }
         }
     }
 
     public void EndSwordAttack()
     {
-        UnlockMovement();
-        swordAttack.StopAttack();
+        canAttack = true;
     }
 
-    public void LockMovement()
+    public void OnDrawGizmosSelected()
     {
-        canMove = false;
-    }
-
-    public void UnlockMovement()
-    {
-        canMove = true;
+        if(attackPoint != null)
+            Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
     }
 }
