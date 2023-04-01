@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5184968572850055058}
-  - component: {fileID: 6127583191730249920}
   m_Layer: 0
   m_Name: SwordAttackPoint
   m_TagString: Untagged
@@ -32,18 +31,6 @@ Transform:
   m_Father: {fileID: 892156358282487889}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6127583191730249920
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2341204865346482904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90c4498da15b64088b462f2ea2dbd7dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7792991907473849818
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +163,6 @@ GameObject:
   - component: {fileID: 8999548231981004612}
   - component: {fileID: 6107051049073067396}
   - component: {fileID: 3613012033427080328}
-  - component: {fileID: 6236590244647334431}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -213,6 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b06db9515d304a418566afa70a1efc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  startingHealth: 100
+  coins: 0
+  mana: 0
   moveSpeed: 1
   movementFilter:
     useTriggers: 0
@@ -309,19 +299,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.07017118, y: 0.030029997}
   m_EdgeRadius: 0
---- !u!114 &6236590244647334431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8816962288528578207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58146c665b1b34d30a5a80764bd5a6c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  startingHealth: 100
-  coins: 0
-  mana: 0

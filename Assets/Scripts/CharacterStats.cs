@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    private Animator animator;
-
     public float maxHealth = 100;    
     public float startingHealth = 100;
     private float health;
@@ -16,13 +14,10 @@ public class CharacterStats : MonoBehaviour
         }
         set 
         { 
-            float delta = value - health;
+            float startingHealth = health;
             health = value;
 
-            if(health <= 0.0f)
-                Dead();
-            else if(delta < 0 && animator != null)
-                animator.SetTrigger("Ouch");
+            ProcessHealthChange(startingHealth, health);
         }
     }
 
@@ -30,32 +25,13 @@ public class CharacterStats : MonoBehaviour
 
     public float mana;
 
-    void Start()
+    virtual protected void Start()
     {
-        TryGetComponent<Animator>(out animator);
-
         health = startingHealth;
     }
 
-    public void Dead()
+    protected virtual void ProcessHealthChange(float startingHealth, float health)
     {
-        if(animator != null)
-        {
-            animator.SetTrigger("Defeated");
-        }
-        else
-        {
-            RemoveSelf();
-        }
-    }
-
-    public void RemoveSelf()
-    {
-        var drops = GetComponent<DropController>();
-        if(drops)
-            drops.Drop();
-
-        Destroy(gameObject);
     }
 
     public void ProcessPickup(string pickupName)
@@ -66,7 +42,7 @@ public class CharacterStats : MonoBehaviour
         }
         else if(pickupName == "Heart")
         {
-            health = Math.Min(maxHealth, health + 1);
+            health = Math.Min(maxHealth, health + 5);
         }
         else if(pickupName == "Jewel")
         {

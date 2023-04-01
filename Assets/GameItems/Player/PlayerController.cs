@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : CharacterStats
 {
     public float moveSpeed = 0.5f;
     public ContactFilter2D movementFilter;
@@ -21,8 +21,9 @@ public class PlayerController : MonoBehaviour
 
     IInteractableObject interadtableObject;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         sprintRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -103,9 +104,7 @@ public class PlayerController : MonoBehaviour
         var pickup = other.gameObject.GetComponent<IPickupObject>();
         if(pickup != null)
         {
-            var myStats = GetComponent<CharacterStats>();
-            myStats.ProcessPickup(pickup.PickupName);
-
+            ProcessPickup(pickup.PickupName);
             pickup.PickedUp();
         }
     }
@@ -137,6 +136,28 @@ public class PlayerController : MonoBehaviour
     public void EndSwordAttack()
     {
         canAttack = true;
+    }
+
+    protected override void ProcessHealthChange(float startingHealth, float health)
+    {
+        if(health <= 0)
+            Dead();
+        else if(health < startingHealth && animator)
+            animator.SetTrigger("Ouch");
+    }
+
+    public void Dead()
+    {
+        if(animator)
+            animator.SetTrigger("Defeated");
+        else
+            RemoveSelf();
+    }
+
+    public void RemoveSelf()
+    {
+        // Game over!!  Return to main menu, respawn etc.
+        Destroy(gameObject);
     }
 
     public void OnDrawGizmosSelected()

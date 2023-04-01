@@ -40,7 +40,8 @@ public class InGameUIController : MonoBehaviour
         var pos = worldMap.WorldToCell(player.transform.position);
         worldCoordsLabel.text = $"Grid: {pos.x},{pos.y}";
 
-        healthLabel.text = $"Health: {playerStats.Health}/{playerStats.maxHealth}";
+        int h = Mathf.RoundToInt(playerStats.Health);
+        healthLabel.text = $"Health: {h}/{playerStats.maxHealth}";
         manaLabel.text = $"Mana: {playerStats.mana}";
         coinsLabel.text = $"Coins: {playerStats.coins}";
     }

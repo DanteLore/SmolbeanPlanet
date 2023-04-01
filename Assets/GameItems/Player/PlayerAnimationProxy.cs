@@ -2,13 +2,25 @@ using UnityEngine;
 
 public class PlayerAnimationProxy : MonoBehaviour
 {
+    private PlayerController player;
+
+    void Start()
+    {
+        player = transform.parent.GetComponent<PlayerController>();
+    }
+
     public void SwordAttack()
     {
-        transform.parent.GetComponent<PlayerController>().SwordAttack();
+        player.SwordAttack();
     }
 
     public void EndSwordAttack()
     {
-        transform.parent.GetComponent<PlayerController>().EndSwordAttack();
+        player.EndSwordAttack();
+    }
+
+    public void RemoveSelf()
+    {
+        player.RemoveSelf();
     }
 }
