@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -24,6 +25,8 @@ public class SlimeCreator : MonoBehaviour, IObjectCreator
             int count = Random.Range(minGroupSize, maxGroupSize);
             int radius = groupRadiusTiles;
 
+            var added = new HashSet<Vector2>();
+
             while(count > 0)
             {
                 int x = Random.Range(centreX - radius, centreX + radius);
@@ -34,12 +37,16 @@ public class SlimeCreator : MonoBehaviour, IObjectCreator
                 y = Mathf.Min(y, chunk.Height - 1);
                 y = Mathf.Max(y, 0);
 
-                if(chunk.Map[x, y].Tile.Walkable && chunk.Map[x, y].ObjectsOnTile == 0)
+                var v = new Vector2(x, y);
+
+                if(chunk.Map[x, y].Tile.Walkable && chunk.Map[x, y].ObjectsOnTile == 0 && !added.Contains(v))
                 {
                     int worldX = x + chunk.Origin.x;
                     int worldY = y + chunk.Origin.y;
 
                     var pos = tilemap.GetCellCenterWorld(new Vector3Int(worldX, worldY, 0));
+
+                    added.Add(v);
 
                     Instantiate(slimePrefab, pos, Quaternion.identity);
 

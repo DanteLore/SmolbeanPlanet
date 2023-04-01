@@ -181,7 +181,24 @@ MonoBehaviour:
   mana: 0
   attackCentrePoint: {fileID: 570761681079752757}
   attackRadius: 0.22
+  targetRadius: 2.5
   attackDamage: 1
+  moveSpeed: 0.5
+  collisionOffset: 0.1
+  movementFilter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
 --- !u!1 &8270635986782657473
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,21 +1,39 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SlimeController : CharacterStats
 {
+    private GameObject player;
+
     private Animator animator;
 
     public Transform attackCentrePoint;
 
     public float attackRadius = 1.0f;
 
+    public float targetRadius = 3.0f;
+
     public float attackDamage = 1.0f;
+
+    public float moveSpeed = 1.0f;
+    public float collisionOffset = 0.05f;
+
+    private Vector2 movementInput;
+
+    private Rigidbody2D rigidBody;
+    public ContactFilter2D movementFilter;
+    SpriteRenderer sprintRenderer;
 
     protected override void Start()
     {
         base.Start();
 
         TryGetComponent<Animator>(out animator);
+
+        player = GameObject.FindWithTag("Player");
+        rigidBody = GetComponent<Rigidbody2D>();
+        sprintRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Dead()
@@ -45,17 +63,64 @@ public class SlimeController : CharacterStats
 
     void Update()
     {
-        Vector3 attackCentre = attackCentrePoint.position;
+        var distanceToPlayer = Vector3.Distance(attackCentrePoint.position, player.transform.position);
 
-        foreach(var obj in Physics2D.OverlapCircleAll(attackCentre, attackRadius))
+        if(distanceToPlayer <= attackRadius)
         {
-            CharacterStats stats;
-            if(obj.tag == "Player" && obj.TryGetComponent<CharacterStats>(out stats))
+            // Since this is a continuous "poison" attack, scale it with time
+            var stats = player.GetComponent<CharacterStats>();
+            stats.Health -= attackDamage * Time.deltaTime;
+        }
+
+        if(distanceToPlayer <= targetRadius)
+        {
+            movementInput = (player.transform.position - transform.position).normalized;
+        }
+        else
+        {
+            movementInput = Vector2.zero;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        bool success = false;
+
+        if(movementInput != Vector2.zero)
+        {
+            success = TryMove(movementInput);
+
+            if(!success)
             {
-                // Since this is a continuous "poison" attack, scale it with time
-                stats.Health -= attackDamage * Time.deltaTime;
+                success = TryMove(new Vector2(movementInput.x, 0.0f));
+            }
+
+            if(!success)
+            {
+                success = TryMove(new Vector2(0.0f, movementInput.y));
             }
         }
+        
+        animator.SetBool("IsMoving", success);
+        if(movementInput.x < 0)
+            sprintRenderer.flipX = true;
+        else if(movementInput.x > 0)
+            sprintRenderer.flipX = false;
+    }
+
+    private bool TryMove(Vector2 direction)
+    {
+        if(direction == Vector2.zero)
+            return false;
+
+        List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
+        int count =  rigidBody.Cast(direction, movementFilter, castCollisions, moveSpeed * Time.fixedDeltaTime + collisionOffset);
+        if(count == 0)
+        {
+            rigidBody.MovePosition(rigidBody.position + direction * moveSpeed * Time.fixedDeltaTime);
+            return true;
+        }
+        return false;
     }
 
     public void OnDrawGizmosSelected()
