@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: -789981259720370124}
   - component: {fileID: 736015058417504536}
   - component: {fileID: 8791838089739542179}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Jewel
-  m_TagString: Untagged
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

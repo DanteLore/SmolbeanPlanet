@@ -723,7 +723,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0.373, y: 0.094, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -848,17 +848,6 @@ MonoBehaviour:
   player: {fileID: 961812959}
   playerStats: {fileID: 0}
   worldMap: {fileID: 1415721854}
---- !u!114 &693319755 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5863734061891632403, guid: b0b37e403331c4040bd9171a50059612, type: 3}
-  m_PrefabInstance: {fileID: 7066277204061322438}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df416dfc30421452390963c9526bdcb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &961812959 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8816962288528578207, guid: b0b37e403331c4040bd9171a50059612, type: 3}
@@ -1574,7 +1563,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2060164805}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0.373, y: 0.094, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1607,11 +1596,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 892156358282487889, guid: b0b37e403331c4040bd9171a50059612, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.373
       objectReference: {fileID: 0}
     - target: {fileID: 892156358282487889, guid: b0b37e403331c4040bd9171a50059612, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.094
       objectReference: {fileID: 0}
     - target: {fileID: 892156358282487889, guid: b0b37e403331c4040bd9171a50059612, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1652,7 +1641,7 @@ PrefabInstance:
     - target: {fileID: 3335557502582143803, guid: b0b37e403331c4040bd9171a50059612, type: 3}
       propertyPath: swordAttack
       value: 
-      objectReference: {fileID: 693319755}
+      objectReference: {fileID: 0}
     - target: {fileID: 4065650505676314660, guid: b0b37e403331c4040bd9171a50059612, type: 3}
       propertyPath: m_SortingOrder
       value: 0

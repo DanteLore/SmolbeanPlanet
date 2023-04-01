@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 305774016639081379}
   - component: {fileID: 6770068506104576113}
   - component: {fileID: 7759326682669391817}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Heart
-  m_TagString: Untagged
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
