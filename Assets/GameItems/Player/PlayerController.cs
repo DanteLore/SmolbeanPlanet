@@ -18,6 +18,7 @@ public class PlayerController : CharacterStats
     Rigidbody2D rb;
     Animator animator;
     SpriteRenderer sprintRenderer;
+    PlayerInput playerInput;
 
     IInteractableObject interadtableObject;
 
@@ -27,6 +28,7 @@ public class PlayerController : CharacterStats
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         sprintRenderer = GetComponentInChildren<SpriteRenderer>();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     void FixedUpdate()
@@ -157,7 +159,9 @@ public class PlayerController : CharacterStats
     public void RemoveSelf()
     {
         // Game over!!  Return to main menu, respawn etc.
-        Destroy(gameObject);
+        canMove = false;
+        playerInput.enabled = false;
+        animator.enabled = false;
     }
 
     public void OnDrawGizmosSelected()

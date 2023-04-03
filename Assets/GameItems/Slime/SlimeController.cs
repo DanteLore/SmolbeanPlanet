@@ -4,26 +4,21 @@ using UnityEngine;
 
 public class SlimeController : CharacterStats
 {
-    private GameObject player;
-
-    private Animator animator;
-
     public Transform attackCentrePoint;
-
     public float attackRadius = 1.0f;
-
     public float targetRadius = 3.0f;
-
     public float attackDamage = 1.0f;
-
     public float moveSpeed = 1.0f;
     public float collisionOffset = 0.05f;
-
-    private Vector2 movementInput;
-
-    private Rigidbody2D rigidBody;
     public ContactFilter2D movementFilter;
-    SpriteRenderer sprintRenderer;
+
+    private GameObject player;
+    private Animator animator;
+    private Vector2 movementInput;
+    private Rigidbody2D rigidBody;
+    private SpriteRenderer sprintRenderer;
+    private Collider2D mainCollider;
+    private bool isAlive = true;
 
     protected override void Start()
     {
@@ -34,14 +29,14 @@ public class SlimeController : CharacterStats
         player = GameObject.FindWithTag("Player");
         rigidBody = GetComponent<Rigidbody2D>();
         sprintRenderer = GetComponent<SpriteRenderer>();
+        mainCollider = GetComponent<Collider2D>();
     }
 
     public void Dead()
     {
-        if(animator)
-            animator.SetTrigger("Defeated");
-        else
-            RemoveSelf();
+        animator.SetTrigger("Defeated");
+        isAlive = false;
+        mainCollider.enabled = false;
     }
 
     public void RemoveSelf()
@@ -57,12 +52,18 @@ public class SlimeController : CharacterStats
     {
         if(health <= 0)
             Dead();
-        else if(health < startingHealth && animator)
+        else if(health < startingHealth)
             animator.SetTrigger("Ouch");
     }
 
     void Update()
     {
+        if(!isAlive)
+        {
+            movementInput = Vector2.zero;
+            return;
+        }
+
         var distanceToPlayer = Vector3.Distance(attackCentrePoint.position, player.transform.position);
 
         if(distanceToPlayer <= attackRadius)
@@ -114,7 +115,7 @@ public class SlimeController : CharacterStats
             return false;
 
         List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
-        int count =  rigidBody.Cast(direction, movementFilter, castCollisions, moveSpeed * Time.fixedDeltaTime + collisionOffset);
+        int count = rigidBody.Cast(direction, movementFilter, castCollisions, moveSpeed * Time.fixedDeltaTime + collisionOffset);
         if(count == 0)
         {
             rigidBody.MovePosition(rigidBody.position + direction * moveSpeed * Time.fixedDeltaTime);

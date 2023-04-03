@@ -124,8 +124,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.05598718}
-  m_Size: {x: 0.16476303, y: 0.16476303}
+  m_Offset: {x: 0.0016938597, y: 0.061633274}
+  m_Size: {x: 0.09588063, y: 0.09588063}
   m_Direction: 0
 --- !u!95 &4912225464058103634
 Animator:
@@ -184,7 +184,7 @@ MonoBehaviour:
   targetRadius: 2.5
   attackDamage: 1
   moveSpeed: 0.5
-  collisionOffset: 0.1
+  collisionOffset: 0.05
   movementFilter:
     useTriggers: 0
     useLayerMask: 0
